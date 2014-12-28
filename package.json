@@ -1,0 +1,36 @@
+{
+  "name": "sui",
+  "version": "0.1.0",
+  "description": "Simple UI components",
+  "main": "src/sui/index.coffee",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgraichen/sui.git"
+  },
+  "keywords": [
+    "ui",
+    "react"
+  ],
+  "author": "Jan Graichen <jg@altimos.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jgraichen/sui/issues"
+  },
+  "dependencies": {
+    "react": "^0.12.1"
+  },
+  "devDependencies": {
+    "browserify": "^8.0.2",
+    "coffee-script": "^1.8.0",
+    "coffeeify": "^1.0.0",
+    "envify": "^3.2.0",
+    "exorcist": "^0.1.6"
+  }
+}

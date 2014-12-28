@@ -1,0 +1,8 @@
+/.bundle
+/.ruby-version
+/bower_components
+/node_modules
+/tmp
+.sass-cache
+*.lock
+*.zip
