@@ -1,18 +1,18 @@
 {
-  "name": "sui",
+  "name": "molecule",
   "version": "0.1.0",
-  "description": "Simple UI components",
-  "main": "src/sui/index.coffee",
+  "description": "Reactive UI molecules to build higher level components",
+  "main": "molecule/index.coffee",
   "directories": {
     "example": "examples",
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/jest"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jgraichen/sui.git"
+    "url": "https://github.com/jgraichen/molecule.git"
   },
   "keywords": [
     "ui",
@@ -21,7 +21,7 @@
   "author": "Jan Graichen <jg@altimos.de>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jgraichen/sui/issues"
+    "url": "https://github.com/jgraichen/molecule/issues"
   },
   "dependencies": {
     "react": "^0.12.1"
@@ -31,6 +31,22 @@
     "coffee-script": "^1.8.0",
     "coffeeify": "^1.0.0",
     "envify": "^3.2.0",
-    "exorcist": "^0.1.6"
+    "exorcist": "^0.1.6",
+    "jest-cli": "^0.2.1"
+  },
+  "jest": {
+    "scriptPreprocessor": "preprocessor.js",
+    "moduleFileExtensions": [
+      "coffee",
+      "js"
+    ],
+    "testFileExtensions": [
+      "coffee",
+      "js"
+    ],
+    "unmockedModulePathPatterns": [
+      "react",
+      "./util"
+    ]
   }
 }

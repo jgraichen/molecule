@@ -1,3 +1,5 @@
-# Simple UI
+# Molecule
 
-Simple UI components using SASS and CoffeeScript for standalone usage and React
+React/CSS UI molecules build using CoffeeScript and SASS to assemble higher level components.
+
+TODO: Most of all.
