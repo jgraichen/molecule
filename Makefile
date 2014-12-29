@@ -1,9 +1,8 @@
 SHELL = /bin/bash
 
-RUBY = ruby
 NODE = node
 
-SASSC      = $(RUBY) -S bundle exec sass -rbourbon -Inode_modules -I.
+STYLC      = $(NODE) node_modules/.bin/stylus -I node_modules -I .
 COFFEEC    = $(NODE) node_modules/.bin/coffee
 BROWSERIFY = $(NODE) node_modules/.bin/browserify -t coffeeify --extension=".coffee" -t envify
 EXORCIST   = $(NODE) node_modules/.bin/exorcist
@@ -13,15 +12,15 @@ DST = dist
 
 SRCF = $(shell find $(SRC) -name '*.coffee')
 JLIB = $(SRCF:%.coffee=%.js)
-SASS = $(shell find $(SRC) -name '*.sass')
+STYL = $(shell find $(SRC) -name '*.styl')
 
 dist: $(SRCF)
 	@mkdir -p $(DST)
-	NODE_PATH=lib NODE_ENV=production $(BROWSERIFY) --debug molecule/index.coffee | $(EXORCIST) $(DST)/molecule.js.map > $(DST)/molecule.js
+	NODE_PATH=. NODE_ENV=production $(BROWSERIFY) --debug molecule/index.coffee | $(EXORCIST) $(DST)/molecule.js.map > $(DST)/molecule.js
 
-css: $(SASS)
+css: $(STYL)
 	@mkdir -p $(DST)
-	$(SASSC) < molecule/index.sass > $(DST)/molecule.css
+	$(STYLC) < molecule/index.styl > $(DST)/molecule.css
 
 compile: $(JLIB)
 
@@ -32,4 +31,4 @@ clean:
 	rm -rf $(JLIB) $(JLIB:=.map)
 
 test:
-	npm test
+	NODE_PATH=. npm test

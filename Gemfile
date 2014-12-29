@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'sass'
-gem 'bourbon'
+gem 'stic'
+gem 'slim'
