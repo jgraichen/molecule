@@ -4,7 +4,7 @@ NODE = node
 
 STYLC      = $(NODE) node_modules/.bin/stylus -I node_modules -I .
 COFFEEC    = $(NODE) node_modules/.bin/coffee
-BROWSERIFY = $(NODE) node_modules/.bin/browserify -t coffeeify --extension=".coffee" -t envify
+BROWSERIFY = $(NODE) node_modules/.bin/browserify --extension=".coffee"
 EXORCIST   = $(NODE) node_modules/.bin/exorcist
 
 SRC = molecule
