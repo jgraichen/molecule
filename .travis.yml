@@ -1,6 +1,11 @@
+sudo: false
 language: ruby
+cache:
+  directories:
+  - vendor/bundle
+  - node_modules
 install:
-- bundle install
+- bundle install --path vendor/bundle
 - npm install
 before_script:
 - make
