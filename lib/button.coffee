@@ -13,7 +13,6 @@ Button = React.createClass
     cs.push 'molecule'
     cs.push 'button'
     cs.push 'primary' if @props.primary
-
     props.className = cs.join(' ').trim()
 
     tag = if @props.href then 'a' else 'button'
@@ -25,12 +24,13 @@ ButtonGroup = React.createClass
   displayName: 'Molecule.ButtonGroup'
 
   render: ->
-    props = {}
+    props = className: ''
     props[k] = v for k, v of @props
 
-    props.className ?= ''
-    props.className += ' molecule'
-    props.className += ' buttongroup'
+    cs = props.className.split /\s+/
+    cs.push 'molecule'
+    cs.push 'buttongroup'
+    props.className = cs.join(' ').trim()
 
     $ 'div', props, @props.children
 
