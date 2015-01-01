@@ -1,0 +1,45 @@
+@import 'mixin/colors'
+@import 'mixin/button'
+
+$m-button-bg: $m-silver !default
+$m-button-color: $m-dark !default
+
+$m-button-primary-bg: $m-blue !default
+$m-button-primary-color: $m-white !default
+
+.molecule
+  &.button
+    +m-button
+    +m-button-variant($m-button-bg, $m-button-color)
+
+    padding: 6px 8px 5px
+    font-size: .9em
+    font-weight: bold
+
+    &.primary
+      +m-button-variant($m-button-primary-bg, $m-button-primary-color)
+
+    &.small
+      padding: 5px 6px 4px
+      font-size: .8em
+
+    & ~ &
+      margin-left: 3px
+
+  &.buttongroup
+    > %m-button
+      margin: 0
+      position: relative
+      z-index: 0
+
+      &:not(:last-child)
+        margin-right: -1px
+        border-top-right-radius: 0
+        border-bottom-right-radius: 0
+
+      &:not(:first-child)
+        border-top-left-radius: 0
+        border-bottom-left-radius: 0
+
+      &:focus, &:hover, &.primary
+        z-index: 1
