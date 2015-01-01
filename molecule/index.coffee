@@ -1,2 +1,6 @@
-module.exports =
-  Button: require './button'
+#
+Button = require "./button"
+
+module.exports = {
+  Button: Button
+}

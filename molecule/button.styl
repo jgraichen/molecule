@@ -1,0 +1,20 @@
+$MoleculeButton
+  font-size inherit
+  line-height inherit
+
+  // Behave like an inline element like you would expect of a button.
+  display: inline-block
+  margin: 0
+
+  // Set cursor for overall seamless appearance.
+  cursor: pointer
+
+  // Ensure sizings and text behavior.
+  box-sizing: border-box
+  white-space: pre
+
+molecule-button(color, textColor = Molecule.Theme.TextColor)
+  @extend $MoleculeButton
+  @extend $MoleculeThemeButton
+
+  color: textColor

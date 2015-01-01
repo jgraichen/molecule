@@ -1,17 +1,17 @@
 #
 React = require 'react'
-{cx, merge} = require './util'
-
-{button} = React.DOM
+$ = React.createElement
 
 Button = React.createClass
   displayName: 'Molecule.Button'
 
   render: ->
-    props = merge @props,
-      className: cx @props.className,
-        'molecule-button': true
+    props = {}
+    props[k] = v for k, v of @props
 
-    React.createElement 'button', props, @props.children
+    props.className ?= ''
+    props.className += ' molecule-button'
+
+    $ 'button', props, @props.children
 
 module.exports = Button
