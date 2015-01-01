@@ -16,7 +16,21 @@ html
       h1 Molecule: Examples
     article
       markdown:
-        List of examples showing molecule components, styles and configuration options.
-      ul
-        li
-          a href="button.html" Button
+        List of examples showing molecule components, styles and
+        configuration options.
+
+        * [Button](button.html) examples showing usage of single
+          buttons and button groups
+
+        ## Notice for React examples
+
+        The function `React.createElement` is aliased as `$` allowing
+        to write simple nested things in coffeescript like this:
+
+            $ 'div', null,
+              $ Molecule.Button, null, 'Button A'
+              $ Molecule.Button, null, 'Button B'
+
+        This will render a div tag containing two buttons without
+        using `React.DOM` or `createFactory`. This style is not necessary
+        but only a personal preference.
