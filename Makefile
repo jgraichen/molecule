@@ -3,54 +3,35 @@ SHELL = /bin/bash
 NODE = node
 RUBY = ruby
 
-SLIMRB     = $(RUBY) -S bundle exec slimrb
-STYLC      = $(NODE) node_modules/.bin/stylus -I node_modules -I .
+SLIMC      = $(RUBY) -S bundle exec slimrb
+SASSC      = $(RUBY) -S bundle exec sass
 COFFEEC    = $(NODE) node_modules/.bin/coffee
 BROWSERIFY = $(NODE) node_modules/.bin/browserify --extension=".coffee"
-EXORCIST   = $(NODE) node_modules/.bin/exorcist
 
-SOURCE   = molecule
-LIB      = lib
-DIST     = dist
-EXAMPLES = examples
+COFFEE_FILES = $(shell find lib -name '*.coffee')
+SASS_FILES   = $(shell find lib -name '*.sass')
+SLIM_FILES   = $(shell find lib -name '*.slim')
 
-COFFEE_FILES = $(shell find $(SOURCE) -name '*.coffee')
-STYLUS_FILES = $(shell find $(SOURCE) -name '*.styl')
-SCRIPT_FILES = $(COFFEE_FILES:$(SOURCE)/%.coffee=$(LIB)/%.js)
-SLIMRB_FILES = $(shell find $(SOURCE) -name '*.slim')
-EXAMPLE_HTML = $(SLIMRB_FILES:$(SOURCE)/%.slim=$(EXAMPLES)/%.html)
+EXAMPLES = $(SLIM_FILES:lib/%.slim=examples/%.html)
 
-examples: $(EXAMPLE_HTML) $(EXAMPLES)/molecule.js $(EXAMPLES)/molecule.css
-	@mkdir -p $(EXAMPLES)
+examples: examples/molecule.css examples/molecule.js $(EXAMPLES)
 
-$(EXAMPLES)/molecule.js: $(COFFEE_FILES)
-	@mkdir -p $(EXAMPLES)
-	NODE_PATH=. NODE_ENV=development $(BROWSERIFY) -r "$(SOURCE)/index.coffee:molecule" -r react --debug | $(EXORCIST) $(EXAMPLES)/molecule.js.map > $(EXAMPLES)/molecule.js
+examples/molecule.js: $(COFFEE_FILES)
+	@mkdir -p examples
+	NODE_PATH=. NODE_ENV=development $(BROWSERIFY) -r lib -r react --debug > examples/molecule.js
 
-$(EXAMPLES)/molecule.css: $(STYLUS_FILES)
-	@mkdir -p $(EXAMPLES)
-	$(STYLC) < $(SOURCE)/index.styl > $(EXAMPLES)/molecule.css
+examples/molecule.css: $(SASS_FILES)
+	@mkdir -p examples
+	$(SASSC) lib/index.sass > examples/molecule.css
 
-$(EXAMPLES)/%.html: $(SOURCE)/%.slim
+examples/%.html: lib/%.slim
 	@mkdir -p $(@D)
-	$(SLIMRB) $< > $@
-
-compile: $(SCRIPT_FILES)
-
-$(LIB)/%.js: $(SOURCE)/%.coffee
-	@mkdir -p $(@D)
-	$(COFFEEC) --compile --bare --map --output $(@D) $<
+	$(SLIMC) $< > $@
 
 clean:
-	rm -f $(EXAMPLES)/molecule.js $(EXAMPLES)/molecule.js.map $(EXAMPLES)/molecule.css
-	rm -f $(EXAMPLE_HTML)
-	rmdir $(shell dirname ${EXAMPLE_HTML} | sort | uniq | sort -r)
-
-clean-lib:
-	rm -f $(SCRIPT_FILES) $(SCRIPT_FILES:=.map)
-	rmdir $(shell dirname ${SCRIPT_FILES} | sort | uniq | sort -r)
-
-clean-all: clean clean-examples
+	rm -f examples/molecule.js examples/molecule.js.map examples/molecule.css
+	rm -f $(EXAMPLES)
+	rmdir --ignore-fail-on-non-empty $(shell dirname ${EXAMPLES} | sort | uniq | sort -r)
 
 test:
 	NODE_PATH=. npm test
