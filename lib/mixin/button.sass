@@ -29,7 +29,6 @@
     text-decoration: none
 
   &:active, &.active
-    outline: 0
     background-image: none
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, .2)
 
@@ -59,7 +58,9 @@
   background-color: $color
   background-image: linear-gradient(lighten($color, 2%), darken($color, 4%))
 
-  transition: border-color, box-shadow .2s
+  outline: 1px solid transparent
+  outline-offset: -2px
+  transition: border-color .2s, box-shadow .2s, outline-color .2s
 
   &:hover
     color: $text
@@ -76,11 +77,10 @@
 
   &:focus, &.focus
     @if $outline
-      outline: 1px solid $focus
-      outline-offset: -2px
+      outline-width: 1px
+      outline-color: $focus
     @else
       border-color: $focus
-      outline: none
 
   &[disabled]
     &:hover, &:focus, &:active, &.focus, &.active, &
