@@ -14,6 +14,8 @@ SLIM_FILES   = $(shell find lib -name '*.slim')
 
 EXAMPLES = $(SLIM_FILES:lib/%.slim=examples/%.html)
 
+default: examples test
+
 examples: examples/molecule.css examples/molecule.js $(EXAMPLES)
 
 examples/molecule.js: $(COFFEE_FILES)
