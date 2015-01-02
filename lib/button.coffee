@@ -15,6 +15,9 @@ Button = React.createClass
     cs.push 'primary' if @props.primary
     props.className = cs.join(' ').trim()
 
+    props['role'] = 'button'
+    props['aria-disabled'] = !!@props.disabled
+
     tag = if @props.href then 'a' else 'button'
 
     $ tag, props, @props.children

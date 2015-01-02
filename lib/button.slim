@@ -3,15 +3,16 @@ html
   head
     meta charset="utf-8"
     title Molecule - Buttons
-    script src="molecule.js"
     link rel="stylesheet" href="example.css"
     link rel="stylesheet" href="molecule.css"
+    script src="molecule.js"
+
+  body
     coffee:
       window.React = require 'react'
       window.Molecule = require 'lib'
       window.$ = React.createElement
 
-  body
     header
       a href="index.html" Index
       h1 Molecule: Buttons
