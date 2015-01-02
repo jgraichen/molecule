@@ -68,18 +68,19 @@
     background-color: darken($color, 3%)
     background-image: linear-gradient($color, darken($color, 6%))
 
-  &:active, &.active
-    border-color: darken($border, 8%)
-    box-shadow: inset 0 1px .2em rgba(0, 0, 0, .4)
-    background-image: none
-    background-color: darken($color, 3%)
-
   &:focus, &.focus
     @if $outline
       outline-width: 1px
       outline-color: $focus
     @else
       border-color: $focus
+
+  &:active, &.active
+    border-color: darken($border, 8%)
+    box-shadow: inset 0 1px .2em rgba(0, 0, 0, .4)
+    background-image: none
+    background-color: darken($color, 3%)
+    outline-color: transparent
 
   &[disabled]
     &:hover, &:focus, &:active, &.focus, &.active, &
