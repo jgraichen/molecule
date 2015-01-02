@@ -74,9 +74,10 @@ html
                 for el in e.target.parentNode.getElementsByTagName 'input'
                   if found
                     el.focus()
-                    break
+                    return
 
                   found = true if el == e.target
+                return
 
               $ Molecule.Group, null,
                 $ Molecule.Input, className: 'shortest', maxLength: 4, onMaxLength: next
@@ -91,10 +92,10 @@ html
               for el in e.target.parentNode.getElementsByTagName 'input'
                 if found
                   el.focus()
-                  break
+                  return
 
                 found = true if el == e.target
-
+              return
 
             elem = $ 'div', null,
               $ Molecule.Group, null,
