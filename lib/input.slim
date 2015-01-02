@@ -30,12 +30,32 @@ html
         markdown:
           Example of React component:
 
-              $ Molecule.Input, value: 'A given value'
+              $ Molecule.Input, defaultValue: 'A given value'
+
+              $ Molecule.Input, className: 'shorter', placeholder: 'Shorter input'
+              $ Molecule.Input, className: 'short', placeholder: 'Short input'
+              $ Molecule.Input, placeholder: 'Default input'
+              $ Molecule.Input, className: 'long', placeholder: 'Long input'
+              $ Molecule.Input, className: 'longer', placeholder: 'Longer input'
+              $ Molecule.Input, className: 'fluid', placeholder: 'Fluid input'
 
         .example#example2
         coffee:
           root = document.getElementById 'example2'
           elem = $ 'div', null,
-            $ Molecule.Input, value: 'A given value'
+            $ 'p', null,
+              $ Molecule.Input, defaultValue: 'A given value'
+            $ 'p', null,
+              $ Molecule.Input, className: 'shorter', placeholder: 'Shorter input (5em)'
+            $ 'p', null,
+              $ Molecule.Input, className: 'short', placeholder: 'Short input (10em)'
+            $ 'p', null,
+              $ Molecule.Input, placeholder: 'Default input (20em)'
+            $ 'p', null,
+              $ Molecule.Input, className: 'long', placeholder: 'Long input (30em)'
+            $ 'p', null,
+              $ Molecule.Input, className: 'longer', placeholder: 'Longer input (40em)'
+            $ 'p', null,
+              $ Molecule.Input, className: 'fluid', placeholder: 'Fluid input'
 
           React.render elem, root

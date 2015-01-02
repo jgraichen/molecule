@@ -1,6 +1,7 @@
 @import 'element'
 
 %m-input
+  box-sizing: border-box
   display: inline-block
   width: 20em
 
@@ -17,6 +18,21 @@
   border-radius: 2px
 
   margin: 0
+
+  &.shorter
+    width: 5em
+
+  &.short
+    width: 10em
+
+  &.long
+    width: 30em
+
+  &.longer
+    width: 40em
+
+  &.fluid
+    width: 100%
 
 @mixin m-input
   @extend %m-input
