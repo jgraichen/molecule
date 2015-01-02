@@ -1,5 +1,7 @@
 # Molecule
 
+[![Build Status](https://travis-ci.org/jgraichen/molecule.svg?branch=master)](https://travis-ci.org/jgraichen/molecule)
+
 React/SASS UI molecules to assemble higher level components.
 
 It's an experiment with components extracted from some projects while keeping everything simple and flexible. Also with tests.
