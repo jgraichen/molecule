@@ -14,6 +14,16 @@ Input = React.createClass
     cs.push 'input'
     props.className = cs.join(' ').trim()
 
+    props.onChange = (e) =>
+      if @props.transform
+        e.target.value = @props.transform e.target.value
+
+      if @props.onMaxLength && @props.maxLength && e.target.value.length >= @props.maxLength
+        @props.onMaxLength e
+
+      if @props.onChange && !e.defaultPrevented
+        @props.onChange e
+
     $ 'input', props, @props.children
 
 module.exports = Input

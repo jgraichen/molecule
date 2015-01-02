@@ -67,21 +67,62 @@ html
         markdown:
           A group can be used to combine several input elements.
 
+          This example additionally demonstrate the usage of the `onMaxLength`
+          used to jump top the next input element.
+
+              next = (e) ->
+                for el in e.target.parentNode.getElementsByTagName 'input'
+                  if found
+                    el.focus()
+                    break
+
+                  found = true if el == e.target
+
               $ Molecule.Group, null,
-                $ Molecule.Input, className: 'shortest', placeholder: '123', maxLength: 4
-                $ Molecule.Input, className: 'shortest', placeholder: '123', maxLength: 4
-                $ Molecule.Input, className: 'shorter', placeholder: '123456', maxLength: 6
-                $ Molecule.Input, className: 'shorter', placeholder: '123456', maxLength: 6
+                $ Molecule.Input, className: 'shortest', maxLength: 4, onMaxLength: next
+                $ Molecule.Input, className: 'shortest', maxLength: 4, onMaxLength: next
+                $ Molecule.Input
 
         .example
           #example3
           coffee:
             root = document.getElementById 'example3'
+            next = (e) ->
+              for el in e.target.parentNode.getElementsByTagName 'input'
+                if found
+                  el.focus()
+                  break
+
+                found = true if el == e.target
+
+
             elem = $ 'div', null,
               $ Molecule.Group, null,
-                $ Molecule.Input, className: 'shortest', placeholder: '0000', maxLength: 4
-                $ Molecule.Input, className: 'shortest', placeholder: '0000', maxLength: 4
-                $ Molecule.Input, className: 'shorter', placeholder: '001122', maxLength: 6
-                $ Molecule.Input, className: 'shorter', placeholder: '001122', maxLength: 6
+                $ Molecule.Input, className: 'shortest', maxLength: 4, onMaxLength: next
+                $ Molecule.Input, className: 'shortest', maxLength: 4, onMaxLength: next
+                $ Molecule.Input
+
+            React.render elem, root
+
+        markdown:
+          Specify a `transform` function that will be applied on all inputs:
+
+              upcase = (value) -> value.toUpperCase()
+              numeric = (value) -> value.replace /[^0-9]/g, ''
+
+              $ Molecule.Input, className: 'short', transform: upcase
+              $ Molecule.Input, className: 'short', transform: numeric
+
+        .example
+          #example4
+          coffee:
+            root = document.getElementById 'example4'
+            upcase = (value) -> value.toUpperCase()
+            numeric = (value) -> value.replace /[^0-9]/g, ''
+
+            elem = $ 'div', null,
+              $ Molecule.Input, className: 'short', transform: upcase
+              ' '
+              $ Molecule.Input, className: 'short', transform: numeric
 
             React.render elem, root
