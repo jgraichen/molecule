@@ -1,4 +1,4 @@
-@import 'element'
+@import 'control'
 
 %m-input
   box-sizing: border-box
@@ -19,29 +19,14 @@
 
   margin: 0
 
-  &.shorter
-    width: 5em
-
-  &.short
-    width: 10em
-
-  &.long
-    width: 30em
-
-  &.longer
-    width: 40em
-
-  &.fluid
-    width: 100%
-
 @mixin m-input
+  @extend %m-control
   @extend %m-input
-  @extend %m-element
 
 @mixin m-input-variant($color, $border: rgba(0, 0, 0, .2), $focus: rgba(0, 0, 0, .8))
   color: $color
   border-color: $border
-  transition: border-color, box-shadow .2s
+  transition: border-color .2s, box-shadow .2s
 
   &:hover
     border-color: darken($border, 8%)

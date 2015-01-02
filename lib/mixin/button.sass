@@ -1,4 +1,4 @@
-@import 'element'
+@import 'control'
 @import 'functions'
 
 // All button-like elements should extend this to work
@@ -44,7 +44,7 @@
 
 @mixin m-button
   @extend %m-button
-  @extend %m-element
+  @extend %m-control
 
 @mixin m-button-variant($color, $text, $border: rgba(0, 0, 0, .2), $focus: rgba(0, 0, 0, .8), $outline: false)
   color: $text

@@ -32,6 +32,7 @@ html
 
               $ Molecule.Input, defaultValue: 'A given value'
 
+              $ Molecule.Input, className: 'shortest', placeholder: 'Shortest input'
               $ Molecule.Input, className: 'shorter', placeholder: 'Shorter input'
               $ Molecule.Input, className: 'short', placeholder: 'Short input'
               $ Molecule.Input, placeholder: 'Default input'
@@ -39,23 +40,48 @@ html
               $ Molecule.Input, className: 'longer', placeholder: 'Longer input'
               $ Molecule.Input, className: 'fluid', placeholder: 'Fluid input'
 
-        .example#example2
-        coffee:
-          root = document.getElementById 'example2'
-          elem = $ 'div', null,
-            $ 'p', null,
-              $ Molecule.Input, defaultValue: 'A given value'
-            $ 'p', null,
-              $ Molecule.Input, className: 'shorter', placeholder: 'Shorter input (5em)'
-            $ 'p', null,
-              $ Molecule.Input, className: 'short', placeholder: 'Short input (10em)'
-            $ 'p', null,
-              $ Molecule.Input, placeholder: 'Default input (20em)'
-            $ 'p', null,
-              $ Molecule.Input, className: 'long', placeholder: 'Long input (30em)'
-            $ 'p', null,
-              $ Molecule.Input, className: 'longer', placeholder: 'Longer input (40em)'
-            $ 'p', null,
-              $ Molecule.Input, className: 'fluid', placeholder: 'Fluid input'
+        .example
+          #example2
+          coffee:
+            root = document.getElementById 'example2'
+            elem = $ 'div', null,
+              $ 'p', null,
+                $ Molecule.Input, defaultValue: 'A given value'
+              $ 'p', null,
+                $ Molecule.Input, className: 'shortest', placeholder: 'Shortest input'
+              $ 'p', null,
+                $ Molecule.Input, className: 'shorter', placeholder: 'Shorter input (5em)'
+              $ 'p', null,
+                $ Molecule.Input, className: 'short', placeholder: 'Short input (10em)'
+              $ 'p', null,
+                $ Molecule.Input, placeholder: 'Default input (20em)'
+              $ 'p', null,
+                $ Molecule.Input, className: 'long', placeholder: 'Long input (30em)'
+              $ 'p', null,
+                $ Molecule.Input, className: 'longer', placeholder: 'Longer input (40em)'
+              $ 'p', null,
+                $ Molecule.Input, className: 'fluid', placeholder: 'Fluid input'
 
-          React.render elem, root
+            React.render elem, root
+
+        markdown:
+          A group can be used to combine several input elements.
+
+              $ Molecule.Group, null,
+                $ Molecule.Input, className: 'shortest', placeholder: '123', maxLength: 4
+                $ Molecule.Input, className: 'shortest', placeholder: '123', maxLength: 4
+                $ Molecule.Input, className: 'shorter', placeholder: '123456', maxLength: 6
+                $ Molecule.Input, className: 'shorter', placeholder: '123456', maxLength: 6
+
+        .example
+          #example3
+          coffee:
+            root = document.getElementById 'example3'
+            elem = $ 'div', null,
+              $ Molecule.Group, null,
+                $ Molecule.Input, className: 'shortest', placeholder: '0000', maxLength: 4
+                $ Molecule.Input, className: 'shortest', placeholder: '0000', maxLength: 4
+                $ Molecule.Input, className: 'shorter', placeholder: '001122', maxLength: 6
+                $ Molecule.Input, className: 'shorter', placeholder: '001122', maxLength: 6
+
+            React.render elem, root
