@@ -1,6 +1,9 @@
 #
-{Button, ButtonGroup} = require "./button"
+Button = require './button'
+Input = require './input'
+Group = require './group'
 
 module.exports =
   Button: Button
-  ButtonGroup: ButtonGroup
+  Input: Input
+  Group: Group

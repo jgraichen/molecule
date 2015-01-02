@@ -1,7 +1,7 @@
 jest.dontMock '../button'
 
 React = require 'react/addons'
-{Button, ButtonGroup} = require '../button'
+Button = require '../button'
 
 $ = React.createElement
 render = React.addons.TestUtils.renderIntoDocument
@@ -34,17 +34,3 @@ describe 'Button', ->
     expect(btn.getDOMNode().textContent).toEqual('Button text');
     expect(btn.getDOMNode().className).toEqual('molecule button');
     expect(btn.getDOMNode().href).toEqual('file:///#');
-
-describe 'ButtonGroup', ->
-  it 'should render correctly', ->
-    html = render $ ButtonGroup, className: 'custom foo',
-      $ Button, null, 'Button A'
-      $ Button, null, 'Button B'
-    btn  = findCss html, 'buttongroup'
-
-    expect(btn.getDOMNode().className).toEqual('custom foo molecule buttongroup');
-    expect(btn.getDOMNode().children.length).toEqual(2);
-
-    for tag in btn.getDOMNode().children
-      expect(tag.tagName).toEqual('BUTTON')
-

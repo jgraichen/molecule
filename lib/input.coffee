@@ -2,8 +2,8 @@
 React = require 'react'
 $ = React.createElement
 
-Button = React.createClass
-  displayName: 'Molecule.Button'
+Input = React.createClass
+  displayName: 'Molecule.Input'
 
   render: ->
     props = className: ''
@@ -11,12 +11,9 @@ Button = React.createClass
 
     cs = props.className.split /\s+/
     cs.push 'molecule'
-    cs.push 'button'
-    cs.push 'primary' if @props.primary
+    cs.push 'input'
     props.className = cs.join(' ').trim()
 
-    tag = if @props.href then 'a' else 'button'
+    $ 'input', props, @props.children
 
-    $ tag, props, @props.children
-
-module.exports = Button
+module.exports = Input

@@ -59,16 +59,16 @@ html
       h2 Button Groups
       section
         markdown:
-          A button group consists of several buttons sharing an outer containment.
+          Several buttons can be grouped using a group molecule.
 
-              <div class="molecule buttongroup">
+              <div class="molecule group">
                 <button class="molecule button">A</button>
                 <button class="molecule button">B</button>
                 <button class="molecule button primary">C</button>
                 <button class="molecule button">D</button>
               </div>
         .example
-          | <div class="molecule buttongroup">
+          | <div class="molecule group">
           | <button class="molecule button">A</button>
           | <button class="molecule button">B</button>
           | <button class="molecule button primary">C</button>
@@ -77,7 +77,7 @@ html
         markdown:
           Example of React component:
 
-              $ Molecule.ButtonGroup, null,
+              $ Molecule.Group, null,
                 $ Molecule.Button, null, 'A'
                 $ Molecule.Button, null, 'B'
                 $ Molecule.Button, primary: true, 'C'
@@ -86,7 +86,7 @@ html
         coffee:
           root = document.getElementById 'example4'
           elem = $ 'div', null,
-            $ Molecule.ButtonGroup, null,
+            $ Molecule.Group, null,
               $ Molecule.Button, null, 'A'
               $ Molecule.Button, null, 'B'
               $ Molecule.Button, primary: true, 'C'

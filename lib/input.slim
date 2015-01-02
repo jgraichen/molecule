@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Molecule - Input
+    script src="molecule.js"
+    link rel="stylesheet" href="example.css"
+    link rel="stylesheet" href="molecule.css"
+    coffee:
+      window.React = require 'react'
+      window.Molecule = require 'lib'
+      window.$ = React.createElement
+
+  body
+    header
+      a href="index.html" Index
+      h1 Molecule: Input & Form Control
+    article
+      h2 Simple input elements
+      section
+        markdown:
+          An `input` element. Molecule provides very basic styling using the default theme.
+
+              <input type="text" class="molecule input" value="A given value"></input>
+
+        .example#example1
+          | <input type="text" class="molecule input" value="A given value"></input>
+
+        markdown:
+          Example of React component:
+
+              $ Molecule.Input, value: 'A given value'
+
+        .example#example2
+        coffee:
+          root = document.getElementById 'example2'
+          elem = $ 'div', null,
+            $ Molecule.Input, value: 'A given value'
+
+          React.render elem, root

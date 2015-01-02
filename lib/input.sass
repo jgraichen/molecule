@@ -1,0 +1,9 @@
+@import 'mixin/input'
+@import 'mixin/variables'
+
+.molecule
+  &.input
+    +m-input
+    +m-input-variant($m-dark, $m-ashgray, $focus: $m-brightblue)
+
+    padding: $m-padding
