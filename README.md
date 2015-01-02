@@ -8,6 +8,8 @@ It's an experiment with components extracted from some projects while keeping ev
 
 TODO: Most of all.
 
+All components should work with different font sizes, families and line height. Additionally they should not be specified at all to allow using these molecules in web application you do not directly control e.g. in plugins.
+
 # Try yourself
 
 1. Clone repository.
