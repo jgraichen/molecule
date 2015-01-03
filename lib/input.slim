@@ -80,8 +80,8 @@ html
                 return
 
               $ Molecule.Group, null,
-                $ Molecule.Input, className: 'shortest', maxLength: 4, onMaxLength: next
-                $ Molecule.Input, className: 'shortest', maxLength: 4, onMaxLength: next
+                $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
+                $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
                 $ Molecule.Input
 
         .example
@@ -99,8 +99,8 @@ html
 
             elem = $ 'div', null,
               $ Molecule.Group, null,
-                $ Molecule.Input, className: 'shortest', maxLength: 4, onMaxLength: next
-                $ Molecule.Input, className: 'shortest', maxLength: 4, onMaxLength: next
+                $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
+                $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
                 $ Molecule.Input
 
             React.render elem, root
