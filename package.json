@@ -46,8 +46,8 @@
       "js"
     ],
     "unmockedModulePathPatterns": [
-      "react",
-      "."
+      "<rootDir>/node_modules",
+      "<rootDir>/lib"
     ]
   },
   "browserify": {

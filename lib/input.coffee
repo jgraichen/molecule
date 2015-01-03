@@ -17,8 +17,6 @@ Input = React.createClass
       classList.push 'molecule'
       classList.push 'input'
 
-    console.log props
-
     $ 'input', props, props.children
 
 # The OnMaxLength extensions extends Input to provide a
