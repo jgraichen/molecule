@@ -22,27 +22,30 @@
   @extend %m-control
   @extend %m-input
 
-@mixin m-input-variant($color, $border: rgba(0, 0, 0, .2), $focus: rgba(0, 0, 0, .8))
-  color: $color
-  border-color: $border
+%m-input-variant
   transition: border-color .2s, box-shadow .2s
 
-  &:hover
-    border-color: darken($border, 8%)
+@mixin m-input-variant($color, $border: rgba(0, 0, 0, .2), $focus: rgba(0, 0, 0, .8))
+  @extend %m-input-variant
+  color: $color
+  border-color: $border
+
+  &:hover, &.hover
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1)
+    border-color: darken($border, 8%)
 
   &:active, &.active, &:focus, &.focus
-    border-color: darken($border, 8%)
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1)
+    border-color: darken($border, 8%)
 
   &:focus, &.focus
-    border-color: $focus
     outline: none
+    border-color: $focus
 
-  &[disabled]
+  &[disabled], fieldset[disabled] &
     &:hover, &:focus, &:active, &.focus, &.active, &
+      opacity: .6
+      box-shadow: none
+      border-color: $border
       background-color: $color
       background-image: none
-      border-color: $border
-      box-shadow: none
-      opacity: .6

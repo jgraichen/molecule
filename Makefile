@@ -4,7 +4,7 @@ NODE = node
 RUBY = ruby
 
 SLIMC      = $(RUBY) -S bundle exec slimrb
-SASSC      = $(RUBY) -S bundle exec sass
+SASSC      = $(RUBY) -S bundle exec sass -r 'compass/import-once/activate'
 COFFEEC    = $(NODE) node_modules/.bin/coffee
 BROWSERIFY = $(NODE) node_modules/.bin/browserify --extension=".coffee"
 

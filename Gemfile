@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'stic'
 gem 'sass'
+gem 'compass-import-once'
+
+gem 'stic'
 gem 'slim'
 gem 'coffee-script'
 gem 'kramdown'

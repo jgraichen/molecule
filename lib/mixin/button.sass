@@ -24,7 +24,7 @@
   border: 1px solid transparent
   border-radius: 2px
 
-  &, &:hover, &:focus, &.focus
+  &, &:hover, &.hover, &:focus, &.focus
     text-decoration: none
 
   &:active, &.active
@@ -45,7 +45,14 @@
   @extend %m-button
   @extend %m-control
 
+// Shared static button styling (variant) code
+%m-button-variant
+  outline: 1px solid transparent
+  outline-offset: -2px
+  transition: border-color .2s, box-shadow .2s, outline-color .2s
+
 @mixin m-button-variant($color, $text, $border: rgba(0, 0, 0, .2), $focus: rgba(0, 0, 0, .8), $outline: false)
+  @extend %m-button-variant
   color: $text
 
   @if lightness($text) < 40%
@@ -57,13 +64,8 @@
   background-color: $color
   background-image: linear-gradient($color, darken($color, 3%))
 
-  outline: 1px solid transparent
-  outline-offset: -2px
-  transition: border-color .2s, box-shadow .2s, outline-color .2s
-
   &:hover
     color: $text
-    text-decoration: none
     border-color: darken($border, 10%)
     background-color: darken($color, 3%)
     background-image: linear-gradient($color, darken($color, 6%))
@@ -76,16 +78,16 @@
       border-color: $focus
 
   &:active, &.active
+    box-shadow: inset 0 1px .2em rgba(0, 0, 0, .25)
     border-color: darken($border, 8%)
-    box-shadow: inset 0 1px .2em rgba(0, 0, 0, .4)
-    background-image: none
-    background-color: darken($color, 3%)
     outline-color: transparent
+    background-color: darken($color, 3%)
+    background-image: none
 
-  &[disabled]
+  &[disabled], fieldset[disabled] &
     &:hover, &:focus, &:active, &.focus, &.active, &
+      opacity: .6
+      box-shadow: none
+      border-color: $border
       background-color: $color
       background-image: none
-      border-color: $border
-      box-shadow: none
-      opacity: .6
