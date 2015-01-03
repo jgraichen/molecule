@@ -7,7 +7,7 @@ tryExtension = (component, ext, args) ->
   if ext.enabled && (ext.enabled == true || ext.enabled.apply(component, args))
     ext.apply.apply(component, args)
 
-Extendible =
+module.exports =
   applyExtensions: (args...) ->
     if @extensions
       for ext in @extensions
@@ -16,5 +16,3 @@ Extendible =
     if @props.extensions
       for ext in @props.extensions
         tryExtension this, ext, args
-
-module.exports = Extendible

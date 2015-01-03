@@ -5,7 +5,7 @@ $ = React.createElement
 Prepare = require './mixin/prepare'
 Extendible = require './mixin/extendible'
 
-Button = React.createClass
+module.exports = React.createClass
   displayName: 'Molecule.Button'
   mixins: [Prepare, Extendible]
 
@@ -25,5 +25,3 @@ Button = React.createClass
         props.tagName = 'BUTTON'
 
     $ props.tagName, props, props.children
-
-module.exports = Button

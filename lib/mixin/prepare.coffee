@@ -7,7 +7,7 @@
 # back. Additionally it checks for extensions and apply
 # them if appropriate.
 #
-Prepare =
+module.exports =
   prepare: (fn) ->
     # Create new props object with empty
     # `className` and `classList`. This way we do not have
@@ -38,5 +38,3 @@ Prepare =
 
     # Return props copy
     props
-
-module.exports = Prepare

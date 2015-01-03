@@ -5,12 +5,13 @@ $ = React.createElement
 Prepare = require './mixin/prepare'
 Extendible = require './mixin/extendible'
 
-__extensions = []
+Transform = require './extensions/transform'
+MaxLength = require './extensions/max-length'
 
-Input = React.createClass
+module.exports = React.createClass
   displayName: 'Molecule.Input'
   mixins: [Prepare, Extendible]
-  extensions: __extensions
+  extensions: [MaxLength, Transform]
 
   render: ->
     props = @prepare (props, classList) =>
@@ -18,36 +19,3 @@ Input = React.createClass
       classList.push 'input'
 
     $ 'input', props, props.children
-
-# The OnMaxLength extensions extends Input to provide a
-# onMaxLength callback that will be triggered when the maxLength
-# is reached.
-#
-Input.OnMaxLength =
-  enabled: ->
-    @props.onMaxLength && @props.maxLength
-
-  apply: (props) ->
-    props.onChange = do (original = props.onChange) =>
-      (e) =>
-        @props.onMaxLength e if e.target.value.length >= @props.maxLength
-        original? e
-
-__extensions.push Input.OnMaxLength
-
-# The Transform extension uses a transform prop function to
-# transform the entered value continuously.
-#
-Input.Transform =
-  enabled: ->
-    @props.transform?
-
-  apply: (props) ->
-    props.onChange = do (original = props.onChange) =>
-      (e) =>
-        e.target.value = @props.transform e.target.value
-        original? e
-
-__extensions.push Input.Transform
-
-module.exports = Input
