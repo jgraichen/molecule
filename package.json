@@ -47,7 +47,7 @@
     ],
     "unmockedModulePathPatterns": [
       "react",
-      "./util"
+      "."
     ]
   },
   "browserify": {

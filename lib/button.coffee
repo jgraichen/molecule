@@ -2,24 +2,28 @@
 React = require 'react'
 $ = React.createElement
 
+Prepare = require './mixin/prepare'
+Extendible = require './mixin/extendible'
+
 Button = React.createClass
   displayName: 'Molecule.Button'
+  mixins: [Prepare, Extendible]
 
   render: ->
-    props = className: ''
-    props[k] = v for k, v of @props
+    props = @prepare (props, classList) =>
 
-    cs = props.className.split /\s+/
-    cs.push 'molecule'
-    cs.push 'button'
-    cs.push 'primary' if @props.primary
-    props.className = cs.join(' ').trim()
+      classList.push 'molecule'
+      classList.push 'button'
+      classList.push 'primary' if @props.primary
 
-    props['role'] = 'button'
-    props['aria-disabled'] = !!@props.disabled
+      props['role'] = 'button'
+      props['aria-disabled'] = !!@props.disabled
 
-    tag = if @props.href then 'a' else 'button'
+      if @props.href
+        props.tagName = 'A'
+      else
+        props.tagName = 'BUTTON'
 
-    $ tag, props, @props.children
+    $ props.tagName, props, props.children
 
 module.exports = Button

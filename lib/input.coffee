@@ -2,39 +2,38 @@
 React = require 'react'
 $ = React.createElement
 
+Prepare = require './mixin/prepare'
 Extendible = require './mixin/extendible'
 
 __extensions = []
 
 Input = React.createClass
   displayName: 'Molecule.Input'
-  mixins: [Extendible]
+  mixins: [Prepare, Extendible]
   extensions: __extensions
 
   render: ->
-    props = className: ''
-    props[k] = v for k, v of @props
+    props = @prepare (props, classList) =>
+      classList.push 'molecule'
+      classList.push 'input'
 
-    cs = props.className.split /\s+/
-    cs.push 'molecule'
-    cs.push 'input'
-    props.className = cs.join(' ').trim()
+    console.log props
 
-    @applyExtensions props
-
-    $ 'input', props, @props.children
+    $ 'input', props, props.children
 
 # The OnMaxLength extensions extends Input to provide a
 # onMaxLength callback that will be triggered when the maxLength
 # is reached.
 #
 Input.OnMaxLength =
+  enabled: ->
+    @props.onMaxLength && @props.maxLength
+
   apply: (props) ->
-    if @props.onMaxLength && @props.maxLength
-      props.onChange = do (original = props.onChange) =>
-        (e) =>
-          @props.onMaxLength e if e.target.value.length >= @props.maxLength
-          original? e
+    props.onChange = do (original = props.onChange) =>
+      (e) =>
+        @props.onMaxLength e if e.target.value.length >= @props.maxLength
+        original? e
 
 __extensions.push Input.OnMaxLength
 
@@ -42,12 +41,14 @@ __extensions.push Input.OnMaxLength
 # transform the entered value continuously.
 #
 Input.Transform =
+  enabled: ->
+    @props.transform?
+
   apply: (props) ->
-    if @props.transform
-      props.onChange = do (original = props.onChange) =>
-        (e) =>
-          e.target.value = @props.transform e.target.value
-          original? e
+    props.onChange = do (original = props.onChange) =>
+      (e) =>
+        e.target.value = @props.transform e.target.value
+        original? e
 
 __extensions.push Input.Transform
 
