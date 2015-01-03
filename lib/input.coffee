@@ -30,23 +30,24 @@ Input = React.createClass
 #
 Input.OnMaxLength =
   apply: (props) ->
-    props.onChange = do (orig = props.onChange) =>
-      (e) =>
-        if @props.onMaxLength && @props.maxLength && e.target.value.length >= @props.maxLength
-          @props.onMaxLength e
-        orig? e
+    if @props.onMaxLength && @props.maxLength
+      props.onChange = do (original = props.onChange) =>
+        (e) =>
+          @props.onMaxLength e if e.target.value.length >= @props.maxLength
+          original? e
 
 __extensions.push Input.OnMaxLength
 
 # The Transform extension uses a transform prop function to
 # transform the entered value continuously.
+#
 Input.Transform =
   apply: (props) ->
-    props.onChange = do (orig = props.onChange) =>
-      (e) =>
-        if @props.transform
+    if @props.transform
+      props.onChange = do (original = props.onChange) =>
+        (e) =>
           e.target.value = @props.transform e.target.value
-        orig? e
+          original? e
 
 __extensions.push Input.Transform
 
