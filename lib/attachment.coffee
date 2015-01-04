@@ -4,52 +4,50 @@ $ = React.createElement
 
 Tether = require 'tether/tether'
 
-module.exports = React.createClass
-  displayName: 'Molecule.Attachment'
+class Attachment
+  constructor: (config) ->
+    @config = config
+    {@render, @target} = @config
 
-  getDefaultProps: ->
-    attachment: 'top left'
-    targetAttachment: 'bottom left'
+    unless @render && typeof @render == 'function'
+      throw new Error 'Attachment must have render function'
 
-  componentDidMount: ->
+    unless @target
+      throw new Error 'Attachment must have target'
+
     @root = document.createElement 'DIV'
     document.body.appendChild @root
 
     document.addEventListener 'mousedown', @handleCloseRequest
     document.addEventListener 'focus', @handleCloseRequest, true
 
-  handleCloseRequest: (e) ->
-    return true unless @tether
+    @tether = new Tether
+      element: @root
+      target: @target
+      attachment: @config.attachment || 'top left'
+      constraints: @config.constraints
+      targetAttachment: @config.targetAttachment || 'bottom left'
 
+    @update()
+
+  handleCloseRequest: (e) =>
     node = e.target
 
     while node != null
       return true if node == @root || node == @target
       node = node.parentNode
 
-    @props.onCloseRequest?()
+    @config.onCloseRequest?()
     true
 
-  attachTo: (target) ->
-    @target = target
-
-    if @tether
-      @tether.setOption target: target
+  update: =>
+    content = @render()
+    if content
+      React.render content, @root, => @tether?.position()
     else
-      @renderComponent()
+      React.unmountComponentAtNode @root
 
-      @tether = new Tether
-        element: @root
-        target: target
-        attachment: @props.attachment
-        constraints: @props.constraints
-        targetAttachment: @props.targetAttachment
-
-  componentDidUpdate: ->
-    @renderComponent()
-    @tether.position() if @tether
-
-  componentWillUnmount: ->
+  destroy: =>
     React.unmountComponentAtNode @root
 
     @tether.destroy()
@@ -57,10 +55,4 @@ module.exports = React.createClass
     document.removeEventListener 'mousedown', @handleCloseRequest
     document.removeEventListener 'focus', @handleCloseRequest
 
-  renderComponent: ->
-    if @props.children
-      React.render @props.children, @root
-    else
-      React.unmountComponentAtNode @root
-
-  render: -> null
+module.exports = Attachment

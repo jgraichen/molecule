@@ -19,6 +19,11 @@ module.exports = ->
       if ext.componentDidMount? && _enabled.call(this, ext)
         ext.componentDidMount.call this
 
+  componentDidUpdate: ->
+    _extensions.call this, (ext) =>
+      if ext.componentDidUpdate? && _enabled.call(this, ext)
+        ext.componentDidUpdate.call this
+
   componentWillUnmount: ->
     _extensions.call this, (ext) =>
       if ext.componentWillUnmount? && _enabled.call(this, ext)
