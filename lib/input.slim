@@ -127,3 +127,25 @@ html
               $ Molecule.Input, className: 'short', transform: numeric
 
             React.render elem, root
+
+        .example
+          #example5
+          coffee:
+            root = document.getElementById 'example5'
+
+            auto = Molecule.Extensions.AutoComplete
+              query: (value) ->
+                new Promise (resolve) ->
+                  resolve [{value: 'Hamlet, Prince of Denmark', author: 'William Shakespear'},
+                   {value: 'Romeo and Juliet', author: 'William Shakespear'},
+                   {value: 'Die Leiden des jungen Werthers', author: 'Johann Wolfgang von Goethe'}]
+
+              render: (item) ->
+                $ 'span', null,
+                  $ 'strong', null, item.value
+                  $ 'em', null, item.author
+
+            elem = $ 'div', null,
+              $ Molecule.Input, className: 'long', extensions: [auto]
+
+            React.render elem, root

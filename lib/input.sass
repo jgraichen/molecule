@@ -6,4 +6,12 @@
     +m-input
     +m-input-variant($m-dark, $m-ashgray, $focus: $m-brightblue)
 
-    padding: $m-padding
+    > input
+      +m-input($control: false)
+      box-sizing: border-box
+      padding: $m-padding
+
+      width: 100%
+
+input.molecule.input, textarea.molecule.input
+  padding: $m-padding
