@@ -7,7 +7,10 @@ Extendible = require './mixin/extendible'
 
 module.exports = React.createClass
   displayName: 'Molecule.Button'
-  mixins: [Prepare, Extendible]
+  mixins: [
+    Prepare()
+    Extendible()
+  ]
 
   render: ->
     props = @prepare (props, classList) =>

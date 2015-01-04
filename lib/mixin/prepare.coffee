@@ -7,13 +7,13 @@
 # back. Additionally it checks for extensions and apply
 # them if appropriate.
 #
-module.exports =
+module.exports = ->
   prepare: (fn) ->
     # Create new props object with empty
     # `className` and `classList`. This way we do not have
     # to check if `className` exists before splitting nor
     # if `classList` exists before adding elements.
-    props = className: '', classList: []
+    props = className: '', classList: [], children: []
 
     # Copy properties from components props into new props.
     props[key] = value for key, value of @props

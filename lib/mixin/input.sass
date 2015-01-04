@@ -11,18 +11,25 @@
   vertical-align: middle
 
   color: inherit
-  border: 1px solid transparent
-  background: #fff
-  border-radius: 2px
+  border: 0 solid transparent
+  background: transparent
 
   margin: 0
+  padding: 0
 
-@mixin m-input
-  @extend %m-control
+  &, &:hover, &:focus
+    outline: none
+
+@mixin m-input($control: true)
+  @if $control
+    @extend %m-control
   @extend %m-input
 
 %m-input-variant
   transition: border-color .2s, box-shadow .2s
+  background: #fff
+  border-width: 1px
+  border-radius: 2px
 
 @mixin m-input-variant($color, $border: rgba(0, 0, 0, .2), $focus: rgba(0, 0, 0, .8))
   @extend %m-input-variant

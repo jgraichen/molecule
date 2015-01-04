@@ -3,7 +3,7 @@
 # onMaxLength callback that will be triggered when the maxLength
 # is reached.
 #
-module.exports =
+module.exports = ->
   enabled: ->
     @props.onMaxLength && @props.maxLength
 

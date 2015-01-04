@@ -3,16 +3,27 @@
 # when rendering.
 #
 
-tryExtension = (component, ext, args) ->
-  if ext.enabled && (ext.enabled == true || ext.enabled.apply(component, args))
-    ext.apply.apply(component, args)
+_extensions = (fn) ->
+  if @extensions
+    fn ext for ext in @extensions
 
-module.exports =
+  if @props.extensions
+    fn ext for ext in @props.extensions
+
+_enabled = (ext, args) ->
+  ext.enabled && (ext.enabled == true || ext.enabled.apply(this, args))
+
+module.exports = ->
+  componentDidMount: ->
+    _extensions.call this, (ext) =>
+      if ext.componentDidMount? && _enabled.call(this, ext)
+        ext.componentDidMount.call this
+
+  componentWillUnmount: ->
+    _extensions.call this, (ext) =>
+      if ext.componentWillUnmount? && _enabled.call(this, ext)
+        ext.componentWillUnmount.call this
+
   applyExtensions: (args...) ->
-    if @extensions
-      for ext in @extensions
-        tryExtension this, ext, args
-
-    if @props.extensions
-      for ext in @props.extensions
-        tryExtension this, ext, args
+    _extensions.call this, (ext) =>
+      ext.apply.apply this, args if _enabled.call(this, ext, args)

@@ -2,7 +2,7 @@
 # The Transform extension uses a transform prop function to
 # transform the entered value continuously.
 #
-module.exports =
+module.exports = ->
   enabled: ->
     @props.transform?
 
