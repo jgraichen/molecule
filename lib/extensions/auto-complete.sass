@@ -1,0 +1,47 @@
+@import '../variables'
+
+.molecule.input.autocompleted
+  &:focus, &.focus, &:active, &.active
+    box-shadow: none
+
+.molecule.autocomplete
+  box-sizing: border-box
+  margin: 0
+
+  border: 1px solid $m-ashgray
+  background: #fff
+
+  // box-shadow: 1px 1px 1px rgba(0, 0, 0, .2)
+
+  transition: border-color .2s
+
+  > ul
+    list-style: none
+    padding: 0
+    margin: 0
+
+    > li
+      padding: $m-padding
+      cursor: pointer
+
+      &:hover, &.focus
+        background-color: rgba($m-brightblue, 0.1)
+
+  &.focus
+    border-color: $m-brightblue
+
+  .tether-element-attached-top:not(.tether-abutted-top) &
+    border-top: none
+    margin-top: -2px
+    padding-top: 2px
+
+    ul
+      border-top: 1px solid $m-silver
+
+  .tether-abutted-top &
+    border-bottom: none
+    margin-bottom: -2px
+    padding-bottom: 2px
+
+    ul
+      border-bottom: 1px solid $m-silver

@@ -71,7 +71,7 @@ html
           used to jump top the next input element.
 
               next = (e) ->
-                for el in e.target.parentNode.getElementsByTagName 'input'
+                for el in e.target.parentNode.parentNode.getElementsByTagName 'input'
                   if found
                     el.focus()
                     return
@@ -89,7 +89,7 @@ html
           coffee:
             root = document.getElementById 'example3'
             next = (e) ->
-              for el in e.target.parentNode.getElementsByTagName 'input'
+              for el in e.target.parentNode.parentNode.getElementsByTagName 'input'
                 if found
                   el.focus()
                   return
@@ -128,24 +128,64 @@ html
 
             React.render elem, root
 
+        h2 AutoComplete extensions
+        markdown:
+          See code example:
+
+              auto = Molecule.Extensions.AutoComplete
+                query: (value) ->
+                  new Promise (resolve) ->
+                    resolve [{value: 'Hamlet, Prince of Denmark', author: 'William Shakespear'},
+                     {value: 'Romeo and Juliet', author: 'William Shakespear'},
+                     {value: 'Die Leiden des jungen Werthers', author: 'Johann Wolfgang von Goethe'}]
+
+                render: (item) ->
+                  $ 'span', null,
+                    $ 'strong', null, item.value
+                    ' '
+                    $ 'em', null, item.author
+
+              elem = $ 'div', null,
+                $ Molecule.Input, className: 'long', extensions: [auto]
+
         .example
           #example5
           coffee:
             root = document.getElementById 'example5'
+            Sifter = require 'sifter'
+
+            ITEMS = [
+              {value: 'Hamlet, Prince of Denmark', author: 'William Shakespear'}
+              {value: 'Romeo and Juliet', author: 'William Shakespear'}
+              {value: 'Die Leiden des jungen Werthers', author: 'Johann Wolfgang von Goethe'}
+            ]
+
+            sifter = new Sifter ITEMS
 
             auto = Molecule.Extensions.AutoComplete
               query: (value) ->
                 new Promise (resolve) ->
-                  resolve [{value: 'Hamlet, Prince of Denmark', author: 'William Shakespear'},
-                   {value: 'Romeo and Juliet', author: 'William Shakespear'},
-                   {value: 'Die Leiden des jungen Werthers', author: 'Johann Wolfgang von Goethe'}]
+                  results = sifter.search value, fields: ['value', 'author']
+                  resolve(ITEMS[item.id] for item in results.items)
 
               render: (item) ->
                 $ 'span', null,
                   $ 'strong', null, item.value
+                  ' '
                   $ 'em', null, item.author
 
             elem = $ 'div', null,
               $ Molecule.Input, className: 'long', extensions: [auto]
 
             React.render elem, root
+
+        markdown:
+          Please notice:
+
+          * The function given as `query` *must* return a JavaScript
+            Promise compatible object.
+          * The `render` function will be called for all items and
+            rendered within a `li` tag.
+          * The autocomplete dropdown will be outside of the react DOM
+            appended at the end of the document. Remember this when writing
+            custom CSS.

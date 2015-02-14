@@ -9,8 +9,11 @@ module.exports = (config) ->
   enabled: true
 
   componentDidMount: ->
+    target = @getDOMNode()
+    width  = target.offsetWidth
+
     @__autocomplete_attachment = new Attachment
-      target: @getDOMNode()
+      target: target
       constraints: [
         { to: 'scrollParent', attachment: 'together' },
         { to: 'window', attachment: 'together' }
@@ -19,8 +22,14 @@ module.exports = (config) ->
         @setState __autocomplete_items: null
       render: =>
         if @state && @state.__autocomplete_items
-          $ 'ul', null,
-            ($ 'li', null, config.render item for item in @state.__autocomplete_items)
+          className = 'molecule autocomplete'
+          className += ' focus' if @state.focus
+
+          $ 'div',
+            className: className
+            style: { width: width }
+            $ 'ul', null,
+              ($ 'li', null, config.render item for item in @state.__autocomplete_items)
 
   componentDidUpdate: ->
     @__autocomplete_attachment.update()
@@ -37,3 +46,5 @@ module.exports = (config) ->
 
     props.onChange = do (orig = props.onChange) => updateItems orig
     props.onFocus = do (orig = props.onFocus) => updateItems orig
+
+    props.classList.push 'autocompleted'
