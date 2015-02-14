@@ -1,0 +1,66 @@
+/* style for example pages */
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	color: #222;
+	font-size: 14px;
+	font-family: 'Segoe UI', 'Helvetica Neue', 'Liberation Sans', Arial, sans-serif;
+	line-height: 1.2;
+}
+
+h1, h2, h3, h4, h5 {
+	font-weight: lighter1;
+}
+
+.example, pre {
+	border: 1px solid #eee;
+	background-color: #f5f5f5;
+	padding: 2em 1em 1em 1em;
+	margin: .5em 1em;
+	position: relative;
+}
+
+pre {
+	font-size: 0.9em;
+	padding: 1em;
+}
+
+.example:before {
+	content: "EXAMPLE";
+	position: absolute;
+	top: .2em;
+	left: .3em;
+	font-size: .8em;
+	color: #999;
+}
+
+a {
+	text-decoration: none;
+	color: #05f;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+header a::before {
+	content: "« ";
+}
+
+header h1 {
+	margin: 0;
+}
+
+article {
+	margin: 20px;
+}
+
+header {
+	background: #f3f3f3;
+	border-bottom: 1px solid #e3e3e3;
+	padding: 20px;
+}
