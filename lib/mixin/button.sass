@@ -51,7 +51,7 @@
   outline-offset: -2px
   transition: border-color .2s, box-shadow .2s, outline-color .2s
 
-@mixin m-button-variant($color, $text, $border: rgba(0, 0, 0, .2), $focus: rgba(0, 0, 0, .8), $outline: false)
+@mixin m-button-variant($color, $text, $border: rgba(0, 0, 0, .2))
   @extend %m-button-variant
   color: $text
 
@@ -71,16 +71,13 @@
     background-image: linear-gradient($color, darken($color, 6%))
 
   &:focus, &.focus
-    @if $outline
-      outline-width: 1px
-      outline-color: $focus
-    @else
-      border-color: $focus
+    outline: thin dotted
+    outline: 5px auto -webkit-focus-ring-color
+    outline-offset: -2px
 
   &:active, &.active
     box-shadow: inset 0 1px .2em rgba(0, 0, 0, .25)
     border-color: darken($border, 8%)
-    outline-color: transparent
     background-color: darken($color, 3%)
     background-image: none
 
