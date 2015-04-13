@@ -145,8 +145,11 @@ html
                     ' '
                     $ 'em', null, item.author
 
+              # Add an indicator for async activity
+              indicator = Molecule.Extensions.Indicator
+
               elem = $ 'div', null,
-                $ Molecule.Input, className: 'long', extensions: [auto]
+                $ Molecule.Input, className: 'long', extensions: [auto, indicator]
 
         .example
           #example5
@@ -176,8 +179,10 @@ html
                   ' '
                   $ 'em', null, item.author
 
+            indicator = Molecule.Extensions.Indicator size: 16
+
             elem = $ 'div', null,
-              $ Molecule.Input, className: 'long', extensions: [auto]
+              $ Molecule.Input, className: 'long', extensions: [auto, indicator]
 
             React.render elem, root
 

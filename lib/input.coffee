@@ -20,7 +20,6 @@ class Input extends Component
   extensions: [
     MaxLength()
     Transform()
-    Indicator()
   ]
 
   render: ->
