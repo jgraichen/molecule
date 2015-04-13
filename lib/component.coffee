@@ -1,6 +1,5 @@
 #
 React = require 'react'
-assign = require 'object-assign'
 
 excludeMethods =
   componentDidMount: true,
