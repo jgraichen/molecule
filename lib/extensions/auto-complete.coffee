@@ -28,8 +28,15 @@ module.exports = (config) ->
           $ 'div',
             className: className
             style: { width: width }
-            $ 'ul', null,
-              ($ 'li', null, config.render item for item in @state.__autocomplete_items)
+            $ 'ul', null, do =>
+              for item, index in @state.__autocomplete_items
+                do (item = item) =>
+                  $ 'li',
+                    key: index
+                    onClick: (e) =>
+                      target.children[0].value = item.value
+                      @setState __autocomplete_items: null
+                    config.render item
 
   componentDidUpdate: ->
     @__autocomplete_attachment.update()
