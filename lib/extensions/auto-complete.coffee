@@ -48,11 +48,10 @@ module.exports = (config) ->
     updateItems = (orig) =>
       (e) =>
         promise = config.query(e.target.value).then (items) =>
-          @setState __autocomplete_items: items
+          @setState __autocomplete_items: items if @state.focus
         @refs['indicator']?.track?(promise)
         orig? e
 
     props.onChange = do (orig = props.onChange) => updateItems orig
     props.onFocus = do (orig = props.onFocus) => updateItems orig
-
     props.classList.push 'm-autocompleted'
