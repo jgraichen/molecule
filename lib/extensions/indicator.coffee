@@ -4,9 +4,9 @@ $ = React.createElement
 Indicator = require '../indicator'
 
 #
-module.exports = ->
+module.exports = (config) ->
   enabled: true
 
   apply: (props) ->
     props.children ?= []
-    props.children.push $ Indicator, ref: 'indicator', key: 'indicator'
+    props.children.push $ Indicator, ref: 'indicator', key: 'indicator', size: config.size
