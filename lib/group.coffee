@@ -10,8 +10,7 @@ Group = React.createClass
     props[k] = v for k, v of @props
 
     cs = props.className.split /\s+/
-    cs.push 'molecule'
-    cs.push 'group'
+    cs.push 'm-group'
     props.className = cs.join(' ').trim()
 
     $ 'div', props, @props.children
