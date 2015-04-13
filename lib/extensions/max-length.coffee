@@ -5,7 +5,7 @@
 #
 module.exports = ->
   enabled: ->
-    @props.onMaxLength && @props.maxLength
+    @props.onMaxLength? && @props.maxLength?
 
   apply: (props) ->
     props.onChange = do (original = props.onChange) =>

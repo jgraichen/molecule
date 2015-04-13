@@ -2,29 +2,27 @@
 React = require 'react'
 $ = React.createElement
 
+Component = require './component'
+
 Prepare = require './mixin/prepare'
 Extendible = require './mixin/extendible'
 
-module.exports = React.createClass
-  displayName: 'Molecule.Button'
-  mixins: [
-    Prepare()
-    Extendible()
-  ]
+class Button extends Component
+  @include Prepare
+  @include Extendible
 
   render: ->
-    props = @prepare (props, classList) =>
+    props = @prepare (props) =>
 
-      classList.push 'molecule'
-      classList.push 'button'
-      classList.push 'primary' if @props.primary
+      props.classList.push 'm-button'
+      props.classList.push 'm-primary' if @props.primary
 
       props['role'] = 'button'
       props['aria-disabled'] = !!@props.disabled
 
-      if @props.href
-        props.tagName = 'A'
-      else
-        props.tagName = 'BUTTON'
+    if @props.href?
+      $ 'a', props, @props.children
+    else
+      $ 'button', props, @props.children
 
-    $ props.tagName, props, props.children
+module.exports = Button

@@ -2,20 +2,20 @@
 React = require 'react'
 $ = React.createElement
 
-Focus = require './mixin/focus'
-Prepare = require './mixin/prepare'
+Component = require './component'
+
 Extendible = require './mixin/extendible'
+Prepare = require './mixin/prepare'
+Focus = require './mixin/focus'
 
 Transform = require './extensions/transform'
 MaxLength = require './extensions/max-length'
 
-module.exports = React.createClass
-  displayName: 'Molecule.Input'
-  mixins: [
-    Prepare()
-    Extendible()
-    Focus(ref: 'input')
-  ]
+class Input extends Component
+  @include Prepare
+  @include Extendible
+  @include Focus, ref: 'input'
+
   extensions: [
     MaxLength()
     Transform()
@@ -23,15 +23,16 @@ module.exports = React.createClass
 
   render: ->
     props = @prepare (props, classList) =>
-      classList.push 'molecule'
-      classList.push 'input'
-      classList.push 'focus' if @state.focus
+      props.ref = 'input'
+
+      props.classList.push 'm-input'
+      props.classList.push 'focus' if @state.focus
 
     className = props.className
     delete props.className
 
-    props.ref = 'input'
-
     $ 'div', className: className,
-      $ 'input', props
-      props.children
+      $ 'input', props, @props.children
+
+
+module.exports = Input

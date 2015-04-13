@@ -10,25 +10,25 @@ _extensions = (fn) ->
   if @props.extensions
     fn ext for ext in @props.extensions
 
-_enabled = (ext, args) ->
-  ext.enabled && (ext.enabled == true || ext.enabled.apply(this, args))
+_enabled = (self, ext, props) ->
+  ext.enabled && (ext.enabled == true || ext.enabled.call(self, props))
 
 module.exports = ->
   componentDidMount: ->
     _extensions.call this, (ext) =>
-      if ext.componentDidMount? && _enabled.call(this, ext)
+      if ext.componentDidMount? && _enabled(this, ext)
         ext.componentDidMount.call this
 
   componentDidUpdate: ->
     _extensions.call this, (ext) =>
-      if ext.componentDidUpdate? && _enabled.call(this, ext)
+      if ext.componentDidUpdate? && _enabled(this, ext)
         ext.componentDidUpdate.call this
 
   componentWillUnmount: ->
     _extensions.call this, (ext) =>
-      if ext.componentWillUnmount? && _enabled.call(this, ext)
+      if ext.componentWillUnmount? && _enabled(this, ext)
         ext.componentWillUnmount.call this
 
-  applyExtensions: (args...) ->
+  applyExtensions: (props) ->
     _extensions.call this, (ext) =>
-      ext.apply.apply this, args if _enabled.call(this, ext, args)
+      ext.apply.call this, props if _enabled @, ext, props

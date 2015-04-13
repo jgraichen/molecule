@@ -1,17 +1,16 @@
 @import 'variables'
 @import 'mixin/input'
 
-.molecule
-  &.input
-    +m-input
-    +m-input-variant($m-dark, $m-ashgray, $focus: $m-brightblue)
+.m-input
+  +m-input
+  +m-input-variant($m-dark, $m-ashgray, $focus: $m-brightblue)
 
-    > input
-      +m-input($control: false)
-      box-sizing: border-box
-      padding: $m-padding
+  > input
+    +m-input($control: false)
+    box-sizing: border-box
+    padding: $m-padding
 
-      width: 100%
+    width: 100%
 
-input.molecule.input, textarea.molecule.input
+input.m-input, textarea.m-input
   padding: $m-padding

@@ -23,10 +23,10 @@ module.exports = ->
     props.classList.unshift props.className.split(/\s+/)...
 
     # Apply extensions if appropriate.
-    @applyExtensions? props, props.classList
+    @applyExtensions? props
 
     # Call given function for fine tuning props.
-    fn? props, props.classList
+    fn? props
 
     # Override `className` with classes from `classList`.
     # The `className` property should not be used in `fn`

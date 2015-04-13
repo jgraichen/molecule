@@ -9,7 +9,7 @@ module.exports = (config) ->
   enabled: true
 
   componentDidMount: ->
-    target = @getDOMNode()
+    target = React.findDOMNode @
     width  = target.offsetWidth
 
     @__autocomplete_attachment = new Attachment
@@ -22,7 +22,7 @@ module.exports = (config) ->
         @setState __autocomplete_items: null
       render: =>
         if @state && @state.__autocomplete_items
-          className = 'molecule autocomplete'
+          className = 'm-autocomplete'
           className += ' focus' if @state.focus
 
           $ 'div',
@@ -37,7 +37,7 @@ module.exports = (config) ->
   componentWillUnmount: ->
     @__autocomplete_attachment.destroy()
 
-  apply: (props, classList) ->
+  apply: (props) ->
     updateItems = (orig) =>
       (e) =>
         config.query(e.target.value).then (items) =>
@@ -47,4 +47,4 @@ module.exports = (config) ->
     props.onChange = do (orig = props.onChange) => updateItems orig
     props.onFocus = do (orig = props.onFocus) => updateItems orig
 
-    props.classList.push 'autocompleted'
+    props.classList.push 'm-autocompleted'

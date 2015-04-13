@@ -15,5 +15,5 @@ describe 'Input', ->
     input = findTag html, 'input'
 
     do (el = input.getDOMNode()) ->
-      expect(el.parentNode.className).toEqual 'custom foo molecule input'
+      expect(el.parentNode.className).toEqual 'custom foo m-input'
       expect(el.value).toEqual 'Input Value'

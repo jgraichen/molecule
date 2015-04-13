@@ -13,13 +13,13 @@ describe 'Button', ->
     html = render $ Button, className: 'custom foo', 'Button text'
     btn  = findTag html, 'button'
 
-    expect(btn.getDOMNode().className).toEqual('custom foo molecule button');
+    expect(btn.getDOMNode().className).toEqual('custom foo m-button');
 
   it 'should have primary class', ->
     html = render $ Button, primary: true, 'Button text'
     btn  = findTag html, 'button'
 
-    expect(btn.getDOMNode().className).toContain('primary');
+    expect(btn.getDOMNode().className).toContain('m-primary');
 
   it 'should render with given content', ->
     html = render $ Button, null, 'Button text'
@@ -32,5 +32,5 @@ describe 'Button', ->
     btn  = findTag html, 'a'
 
     expect(btn.getDOMNode().textContent).toEqual('Button text');
-    expect(btn.getDOMNode().className).toEqual('molecule button');
+    expect(btn.getDOMNode().className).toEqual('m-button');
     expect(btn.getDOMNode().href).toEqual('file:///#');
