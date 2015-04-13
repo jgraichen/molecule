@@ -3,10 +3,11 @@ SHELL = /bin/bash
 NODE = node
 RUBY = ruby
 
-SLIMC      = $(RUBY) -S bundle exec slimrb
-SASSC      = $(RUBY) -S bundle exec sass -r 'compass/import-once/activate'
-COFFEEC    = $(NODE) node_modules/.bin/coffee
-BROWSERIFY = $(NODE) node_modules/.bin/browserify --extension=".coffee"
+SLIMC        = $(RUBY) -S bundle exec slimrb
+SASSC        = $(RUBY) -S bundle exec sass -r 'compass/import-once/activate'
+COFFEEC      = $(NODE) node_modules/.bin/coffee
+BROWSERIFY   = $(NODE) node_modules/.bin/browserify --extension=".coffee"
+AUTOPREFIXER = $(NODE) node_modules/.bin/autoprefixer
 
 COFFEE_FILES = $(shell find lib -name '*.coffee')
 SASS_FILES   = $(shell find lib -name '*.sass')
@@ -24,7 +25,7 @@ examples/molecule.js: $(COFFEE_FILES)
 
 examples/molecule.css: $(SASS_FILES)
 	@mkdir -p examples
-	$(SASSC) lib/index.sass > examples/molecule.css
+	$(SASSC) lib/index.sass | $(AUTOPREFIXER) > examples/molecule.css
 
 examples/%.html: lib/%.slim
 	@mkdir -p $(@D)

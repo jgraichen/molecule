@@ -1,0 +1,24 @@
+@import 'mixin/variables'
+
+.m-spinner
+  display: inline-block
+  opacity: 0
+  margin: 0 0
+  vertical-align: bottom
+
+  color: transparent
+  background-color: $m-brightblue
+
+  animation: m-spinner 1.0s infinite ease-in-out
+  transition: opacity 0.2s ease-in-out
+
+  &.m-spinning
+    opacity: 1
+
+@keyframes m-spinner
+  0%
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  50%
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+  100%
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg)

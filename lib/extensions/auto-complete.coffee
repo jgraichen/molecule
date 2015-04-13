@@ -47,8 +47,9 @@ module.exports = (config) ->
   apply: (props) ->
     updateItems = (orig) =>
       (e) =>
-        config.query(e.target.value).then (items) =>
+        promise = config.query(e.target.value).then (items) =>
           @setState __autocomplete_items: items
+        @refs['indicator']?.track?(promise)
         orig? e
 
     props.onChange = do (orig = props.onChange) => updateItems orig

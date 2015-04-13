@@ -17,8 +17,15 @@
   margin: 0
   padding: 0
 
+  position: relative
+
   &, &:hover, &:focus
     outline: none
+
+  & .m-input-ext
+    position: absolute
+    top: 0
+    right: 0
 
 @mixin m-input($control: true)
   @if $control

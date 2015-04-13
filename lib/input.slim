@@ -165,8 +165,10 @@ html
             auto = Molecule.Extensions.AutoComplete
               query: (value) ->
                 new Promise (resolve) ->
-                  results = sifter.search value, fields: ['value', 'author']
-                  resolve(ITEMS[item.id] for item in results.items)
+                  setTimeout =>
+                    results = sifter.search value, fields: ['value', 'author']
+                    resolve(ITEMS[item.id] for item in results.items)
+                  , 1000
 
               render: (item) ->
                 $ 'span', null,
