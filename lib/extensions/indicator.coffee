@@ -4,7 +4,7 @@ $ = React.createElement
 Indicator = require '../indicator'
 
 #
-module.exports = (config) ->
+module.exports = (config = {}) ->
   enabled: true
 
   apply: (props) ->

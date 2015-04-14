@@ -7,7 +7,7 @@ css = require './util/css'
 Component = require './component'
 
 class Indicator extends Component
-  @defaultProps = size: 16
+  @defaultProps = size: 15
 
   constructor: (props) ->
     super props
