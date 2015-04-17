@@ -26,7 +26,7 @@ class ActivityIndicator extends Component
     promise
 
   prepare: (props) ->
-    console.log @state
+    super props
 
     props.classList.push 'm-activity-indicator'
 

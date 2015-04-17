@@ -6,6 +6,7 @@ module.exports =
     AutoComplete: require './mixin/auto-complete'
     ActivityIndicator: require './mixin/activity-indicator'
 
+  Link: require './link'
   Input: require './input'
   Group: require './group'
   Button: require './button'

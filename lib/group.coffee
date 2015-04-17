@@ -2,17 +2,13 @@
 React = require 'react'
 $ = React.createElement
 
-Group = React.createClass
-  displayName: 'Molecule.Group'
+class Group extends React.Component
+  prepare: (props) ->
+    super props
 
-  render: ->
-    props = className: ''
-    props[k] = v for k, v of @props
+    props.classList.push 'm-group'
 
-    cs = props.className.split /\s+/
-    cs.push 'm-group'
-    props.className = cs.join(' ').trim()
-
-    $ 'div', props, @props.children
+  renderComponent: (props) ->
+    $ 'div', props, props.children
 
 module.exports = Group
