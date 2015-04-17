@@ -1,19 +1,26 @@
+jest.dontMock '../test'
 jest.dontMock '../input'
 
-React = require 'react/addons'
+Test = require '../test'
 Input = require '../input'
 
-$ = React.createElement
-render = React.addons.TestUtils.renderIntoDocument
-findTag = React.addons.TestUtils.findRenderedDOMComponentWithTag
-findCss = React.addons.TestUtils.findRenderedDOMComponentWithClass
-Simulate = React.addons.TestUtils.Simulate
-
 describe 'Input', ->
-  it 'should have CSS classes', ->
-    html  = render $ Input, className: 'custom foo', defaultValue: 'Input Value'
-    input = findTag html, 'input'
+  describe 'value', ->
+    it 'handle initial value', ->
+      doc = Test.render ($) -> $ Input, defaultValue: 'val'
+      inp = doc.findByTag 'input'
 
-    do (el = input.getDOMNode()) ->
-      expect(el.parentNode.className).toEqual 'custom foo m-input'
-      expect(el.value).toEqual 'Input Value'
+      expect(inp.dom.value).toEqual 'val'
+
+  describe 'CSS classes', ->
+    it 'handles className', ->
+      doc = Test.render ($) -> $ Input, className: 'a b'
+      inp = doc.findByClass 'm-input'
+
+      expect(inp.dom.className).toEqual 'a b m-input'
+
+    it 'handles classList', ->
+      doc = Test.render ($) -> $ Input, classList: ['a', 'b']
+      inp = doc.findByClass 'm-input'
+
+      expect(inp.dom.className).toEqual 'a b m-input'

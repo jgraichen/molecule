@@ -4,39 +4,31 @@ $ = React.createElement
 
 Component = require './component'
 
-Extendible = require './mixin/extendible'
-Prepare = require './mixin/prepare'
 Focus = require './mixin/focus'
-
-Transform = require './extensions/transform'
-MaxLength = require './extensions/max-length'
-Indicator = require './extensions/indicator'
+Transform = require './mixin/transform'
+MaxLength = require './mixin/max-length'
 
 class Input extends Component
-  @include Prepare
-  @include Extendible
   @include Focus, ref: 'input'
+  @include MaxLength
+  @include Transform
 
-  extensions: [
-    MaxLength()
-    Transform()
-  ]
+  prepare: (props) ->
+    super props
 
-  render: ->
-    props = @prepare (props, classList) =>
-      props.ref = 'input'
-      props.key = 'input'
+    props.classList.push 'm-input'
+    props.classList.push 'focus' if @state.focus
 
-      props.classList.push 'm-input'
-      props.classList.push 'focus' if @state.focus
-
+  renderComponent: (props) ->
     className = props.className
     delete props.className
+
+    props.ref = 'input'
+    props.key = 'input'
 
     $ 'div', className: className, [
       $ 'input', props, []
       $ 'span', key: 'ext', className: 'm-input-ext', props.children
     ]
-
 
 module.exports = Input

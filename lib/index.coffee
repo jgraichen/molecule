@@ -1,12 +1,12 @@
 #
 module.exports =
-  Extensions:
-    Transform: require './extensions/transform'
-    MaxLength: require './extensions/max-length'
-    AutoComplete: require './extensions/auto-complete'
-    Indicator: require './extensions/indicator'
+  Mixin:
+    Transform: require './mixin/transform'
+    MaxLength: require './mixin/max-length'
+    AutoComplete: require './mixin/auto-complete'
+    ActivityIndicator: require './mixin/activity-indicator'
 
-  Button: require './button'
   Input: require './input'
   Group: require './group'
-  Indicator: require './indicator'
+  Button: require './button'
+  ActivityIndicator: require './activity-indicator'

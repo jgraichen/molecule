@@ -4,11 +4,10 @@
 # is reached.
 #
 module.exports = ->
-  enabled: ->
-    @props.onMaxLength? && @props.maxLength?
+  prepare: (props) ->
+    return unless props.onMaxLength? && props.maxLength?
 
-  apply: (props) ->
     props.onChange = do (original = props.onChange) =>
       (e) =>
-        @props.onMaxLength e if e.target.value.length >= @props.maxLength
+        props.onMaxLength e if e.target.value.length >= props.maxLength
         original? e

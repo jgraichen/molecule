@@ -1,6 +1,6 @@
-@import 'mixin/variables'
+@import "mixin/variables"
 
-.m-spinner
+.m-activity-indicator
   display: inline-block
   opacity: 0
   margin: 0 0
@@ -9,14 +9,14 @@
   color: transparent
   background-color: $m-brightblue
 
-  animation: m-spinner 1.1s infinite ease-in-out
+  animation: m-activity-indicator 1.1s infinite ease-in-out
   transition: opacity 0.2s ease-in-out
   border-radius: 50%
 
-  &.m-spinning
+  &.m-active
     opacity: 1
 
-@keyframes m-spinner
+@keyframes m-activity-indicator
   0%
     transform: perspective(120px) rotateX(0deg) rotateY(0deg)
   50%

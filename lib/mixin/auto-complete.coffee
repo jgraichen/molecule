@@ -6,8 +6,6 @@ $ = React.createElement
 Attachment = require '../attachment'
 
 module.exports = (config) ->
-  enabled: true
-
   componentDidMount: ->
     target = React.findDOMNode @
     width  = target.offsetWidth
@@ -44,7 +42,7 @@ module.exports = (config) ->
   componentWillUnmount: ->
     @__autocomplete_attachment.destroy()
 
-  apply: (props) ->
+  prepare: (props) ->
     updateItems = (orig) =>
       (e) =>
         promise = config.query(e.target.value).then (items) =>
