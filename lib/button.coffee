@@ -17,7 +17,9 @@ class Button extends Component
       props.classList.push 'm-primary' if @props.primary
       props.classList.push 'm-active' if @props.active
 
-      props['role'] = 'button'
+      props.tabIndex ?= 0
+      props.role ?= 'button'
+
       props['aria-disabled'] = !!@props.disabled
 
       props.onClick = do (onClick = props.onClick) =>
