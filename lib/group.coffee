@@ -2,7 +2,9 @@
 React = require 'react'
 $ = React.createElement
 
-class Group extends React.Component
+Component = require './component'
+
+class Group extends Component
   prepare: (props) ->
     super props
 

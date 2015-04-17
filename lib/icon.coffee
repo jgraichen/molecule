@@ -2,7 +2,9 @@
 React = require 'react'
 $ = React.createElement
 
-class Icon extends React.Component
+Component = require './component'
+
+class Icon extends Component
   @defaultProps:
     flip:
       horizontal: false
@@ -20,7 +22,9 @@ class Icon extends React.Component
     props.classList.push 'fa-lg' if props.large
     props.classList.push "fa-#{props.glyph}"
 
+    props['data-glyph'] = props.glyph
+
   renderComponent: (props) ->
-    $ 'i', props, 'data-glyph': props.glyph
+    $ 'i', props
 
 module.exports = Icon
