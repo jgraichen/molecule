@@ -1,36 +1,137 @@
 jest.dontMock '../button'
+jest.dontMock '../test'
 
-React = require 'react/addons'
+Test = require '../test'
 Button = require '../button'
 
-$ = React.createElement
-render = React.addons.TestUtils.renderIntoDocument
-findTag = React.addons.TestUtils.findRenderedDOMComponentWithTag
-findCss = React.addons.TestUtils.findRenderedDOMComponentWithClass
 
 describe 'Button', ->
   it 'should have CSS classes', ->
-    html = render $ Button, className: 'custom foo', 'Button text'
-    btn  = findTag html, 'button'
+    doc = Test.render ($) ->
+      $ Button, className: 'custom foo', 'Button text'
 
-    expect(btn.getDOMNode().className).toEqual('custom foo m-button');
+    btn = doc.findByTag 'button'
+
+    expect(btn.dom.className).toEqual('custom foo m-button');
 
   it 'should have primary class', ->
-    html = render $ Button, primary: true, 'Button text'
-    btn  = findTag html, 'button'
+    doc = Test.render ($) ->
+      $ Button, primary: true, 'Button text'
 
-    expect(btn.getDOMNode().className).toContain('m-primary');
+    btn = doc.findByTag 'button'
+
+    expect(btn.dom.className).toContain('m-primary');
+
+  it 'should have active class', ->
+    doc = Test.render ($) ->
+      $ Button, active: true, 'Button text'
+
+    btn = doc.findByTag 'button'
+
+    expect(btn.dom.className).toContain('m-active');
+
+  it 'should have title attr', ->
+    doc = Test.render ($) ->
+      $ Button, title: 'Title text', 'Button text'
+
+    btn = doc.findByTag 'button'
+
+    expect(btn.dom.title).toEqual('Title text');
 
   it 'should render with given content', ->
-    html = render $ Button, null, 'Button text'
-    btn  = findTag html, 'button'
+    doc = Test.render ($) ->
+      $ Button, null, 'Button text'
 
-    expect(btn.getDOMNode().textContent).toEqual('Button text');
+    btn = doc.findByTag 'button'
+
+    expect(btn.dom.textContent).toEqual('Button text');
 
   it 'should render anchor if href given', ->
-    html = render $ Button, href: '/#', 'Button text'
-    btn  = findTag html, 'a'
+    doc = Test.render ($) ->
+      $ Button, href: '/#', 'Button text'
 
-    expect(btn.getDOMNode().textContent).toEqual('Button text');
-    expect(btn.getDOMNode().className).toEqual('m-button');
-    expect(btn.getDOMNode().href).toEqual('file:///#');
+    btn = doc.findByTag 'a'
+
+    expect(btn.dom.textContent).toEqual('Button text');
+    expect(btn.dom.className).toEqual('m-button');
+    expect(btn.dom.href).toEqual('file:///#');
+
+  it 'should invoke onPrimary on primary click', ->
+    spy = jasmine.createSpy 'onPrimary'
+    doc = Test.render ($) ->
+      $ Button, component: 'a', onPrimary: spy, 'Link text'
+
+    btn = doc.findByTag 'a'
+    btn.click button: 0
+
+    expect(spy).toHaveBeenCalled()
+
+  it 'should invoke onPrimary on enter press', ->
+    spy = jasmine.createSpy 'onPrimary'
+    doc = Test.render ($) ->
+      $ Button, component: 'a', onPrimary: spy, 'Link text'
+
+    btn = doc.findByTag 'a'
+    btn.keyPress keyCode: 13
+
+    expect(spy).toHaveBeenCalled()
+
+  it 'should not invoke onPrimary when clicked with ALT key', ->
+    spy = jasmine.createSpy 'onPrimary'
+    doc = Test.render ($) ->
+      $ Button, component: 'a', onPrimary: spy, 'Link text'
+
+    btn = doc.findByTag 'a'
+    btn.click altKey: true
+
+    expect(spy).not.toHaveBeenCalled()
+
+  it 'should not invoke onPrimary when clicked with META key', ->
+    spy = jasmine.createSpy 'onPrimary'
+    doc = Test.render ($) ->
+      $ Button, component: 'a', onPrimary: spy, 'Link text'
+
+    btn = doc.findByTag 'a'
+    btn.click metaKey: true
+
+    expect(spy).not.toHaveBeenCalled()
+
+  it 'should not invoke onPrimary when clicked with SHIFT key', ->
+    spy = jasmine.createSpy 'onPrimary'
+    doc = Test.render ($) ->
+      $ Button, component: 'a', onPrimary: spy, 'Link text'
+
+    btn = doc.findByTag 'a'
+    btn.click shiftKey: true
+
+    expect(spy).not.toHaveBeenCalled()
+
+  it 'should not invoke onPrimary when clicked with CTRL key', ->
+    spy = jasmine.createSpy 'onPrimary'
+    doc = Test.render ($) ->
+      $ Button, component: 'a', onPrimary: spy, 'Link text'
+
+    btn = doc.findByTag 'a'
+    btn.click ctrlKey: true
+
+    expect(spy).not.toHaveBeenCalled()
+
+  it 'should not invoke onPrimary when clicked with RIGHT button', ->
+    spy = jasmine.createSpy 'onPrimary'
+    doc = Test.render ($) ->
+      $ Button, component: 'a', onPrimary: spy, 'Link text'
+
+    btn = doc.findByTag 'a'
+    btn.click button: 1
+
+    expect(spy).not.toHaveBeenCalled()
+
+  it 'should not invoke onPrimary when clicked with MIDDLE button', ->
+    spy = jasmine.createSpy 'onPrimary'
+    doc = Test.render ($) ->
+      $ Button, component: 'a', onPrimary: spy, 'Link text'
+
+    btn = doc.findByTag 'a'
+    btn.click button: 2
+
+    expect(spy).not.toHaveBeenCalled()

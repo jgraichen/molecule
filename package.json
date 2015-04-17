@@ -2,7 +2,7 @@
   "name": "molecule",
   "version": "0.1.0",
   "description": "Reactive UI molecules to build higher level components",
-  "main": "molecule/index.coffee",
+  "main": "lib/index.coffee",
   "directories": {
     "example": "examples",
     "test": "test"
