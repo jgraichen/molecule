@@ -32,8 +32,7 @@ module.exports = (config) ->
                   $ 'li',
                     key: index
                     onClick: (e) =>
-                      target.children[0].value = item.value
-                      @setState __autocomplete_items: null
+                      @setState value: item.value, __autocomplete_items: null
                     config.render item
 
   componentDidUpdate: ->

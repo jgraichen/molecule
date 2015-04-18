@@ -1,10 +1,10 @@
 #
 module.exports =
-  Mixin:
-    Transform: require './mixin/transform'
-    MaxLength: require './mixin/max-length'
-    AutoComplete: require './mixin/auto-complete'
-    ActivityIndicator: require './mixin/activity-indicator'
+  Mixins:
+    Transform: require './mixins/transform'
+    MaxLength: require './mixins/max-length'
+    AutoComplete: require './mixins/auto-complete'
+    ActivityIndicator: require './mixins/activity-indicator'
 
   Link: require './link'
   Input: require './input'

@@ -32,13 +32,13 @@ html
 
               $ Molecule.Input, defaultValue: 'A given value'
 
-              $ Molecule.Input, className: 'shortest', placeholder: 'Shortest input'
-              $ Molecule.Input, className: 'shorter', placeholder: 'Shorter input'
-              $ Molecule.Input, className: 'short', placeholder: 'Short input'
-              $ Molecule.Input, className: 'default', placeholder: 'Default input'
-              $ Molecule.Input, className: 'long', placeholder: 'Long input'
-              $ Molecule.Input, className: 'longer', placeholder: 'Longer input'
-              $ Molecule.Input, className: 'fluid', placeholder: 'Fluid input'
+              $ Molecule.Input, size: 'shortest', placeholder: 'Shortest input'
+              $ Molecule.Input, size: 'shorter', placeholder: 'Shorter input'
+              $ Molecule.Input, size: 'short', placeholder: 'Short input'
+              $ Molecule.Input, size: 'default', placeholder: 'Default input'
+              $ Molecule.Input, size: 'long', placeholder: 'Long input'
+              $ Molecule.Input, size: 'longer', placeholder: 'Longer input'
+              $ Molecule.Input, size: 'fluid', placeholder: 'Fluid input'
 
         .example
           #example2
@@ -48,19 +48,19 @@ html
               $ 'p', null,
                 $ Molecule.Input, defaultValue: 'A given value'
               $ 'p', null,
-                $ Molecule.Input, className: 'shortest', placeholder: 'Shortest input'
+                $ Molecule.Input, size: 'shortest', placeholder: 'Shortest input'
               $ 'p', null,
-                $ Molecule.Input, className: 'shorter', placeholder: 'Shorter input (5em)'
+                $ Molecule.Input, size: 'shorter', placeholder: 'Shorter input (5em)'
               $ 'p', null,
-                $ Molecule.Input, className: 'short', placeholder: 'Short input (10em)'
+                $ Molecule.Input, size: 'short', placeholder: 'Short input (10em)'
               $ 'p', null,
-                $ Molecule.Input, className: 'default', placeholder: 'Default input (20em)'
+                $ Molecule.Input, size: 'default', placeholder: 'Default input (20em)'
               $ 'p', null,
-                $ Molecule.Input, className: 'long', placeholder: 'Long input (30em)'
+                $ Molecule.Input, size: 'long', placeholder: 'Long input (30em)'
               $ 'p', null,
-                $ Molecule.Input, className: 'longer', placeholder: 'Longer input (40em)'
+                $ Molecule.Input, size: 'longer', placeholder: 'Longer input (40em)'
               $ 'p', null,
-                $ Molecule.Input, className: 'fluid', placeholder: 'Fluid input'
+                $ Molecule.Input, size: 'fluid', placeholder: 'Fluid input'
 
             React.render elem, root
 
@@ -111,8 +111,8 @@ html
               upcase = (value) -> value.toUpperCase()
               numeric = (value) -> value.replace /[^0-9]/g, ''
 
-              $ Molecule.Input, className: 'short', transform: upcase
-              $ Molecule.Input, className: 'short', transform: numeric
+              $ Molecule.Input, size: 'short', transform: upcase
+              $ Molecule.Input, size: 'short', transform: numeric
 
         .example
           #example4
@@ -122,9 +122,9 @@ html
             numeric = (value) -> value.replace /[^0-9]/g, ''
 
             elem = $ 'div', null,
-              $ Molecule.Input, className: 'short', transform: upcase
+              $ Molecule.Input, size: 'short', transform: upcase
               ' '
-              $ Molecule.Input, className: 'short', transform: numeric
+              $ Molecule.Input, size: 'short', transform: numeric
 
             React.render elem, root
 
@@ -132,7 +132,7 @@ html
         markdown:
           See code example:
 
-              auto = Molecule.Mixin.AutoComplete
+              auto = Molecule.Mixins.AutoComplete
                 query: (value) ->
                   new Promise (resolve) ->
                     resolve [{value: 'Hamlet, Prince of Denmark', author: 'William Shakespear'},
@@ -146,10 +146,10 @@ html
                     $ 'em', null, item.author
 
               # Add an indicator for async activity
-              indicator = Molecule.Mixin.Indicator
+              indicator = Molecule.Mixins.Indicator
 
               elem = $ 'div', null,
-                $ Molecule.Input, className: 'long', mixins: [auto, indicator]
+                $ Molecule.Input, size: 'long', mixins: [auto, indicator]
 
         .example
           #example5
@@ -165,7 +165,7 @@ html
 
             sifter = new Sifter ITEMS
 
-            auto = Molecule.Mixin.AutoComplete
+            auto = Molecule.Mixins.AutoComplete
               query: (value) ->
                 new Promise (resolve) ->
                   setTimeout =>
@@ -179,10 +179,10 @@ html
                   ' '
                   $ 'em', null, item.author
 
-            indicator = Molecule.Mixin.ActivityIndicator()
+            indicator = Molecule.Mixins.ActivityIndicator()
 
             elem = $ 'div', null,
-              $ Molecule.Input, className: 'long', mixins: [auto, indicator]
+              $ Molecule.Input, size: 'long', mixins: [auto, indicator]
 
             React.render elem, root
 
