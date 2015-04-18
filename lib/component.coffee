@@ -39,16 +39,20 @@ class Component extends React.Component
     @state = {}
 
   componentDidMount: ->
-    forEachMixin.call @, (mx) => mx.componentDidMount?.call @
+    forEachMixin.call @, (mx) =>
+      mx.componentDidMount?.call @
 
   componentWillUnmount: ->
-    forEachMixin.call @, (mx) => mx.componentWillUnmount?.call @
+    forEachMixin.call @, (mx) =>
+      mx.componentWillUnmount?.call @
 
   componentDidUpdate: ->
-    forEachMixin.call @, (mx) => mx.componentDidUpdate?.call @
+    forEachMixin.call @, (mx) =>
+      mx.componentDidUpdate?.call @
 
   prepare: (props) ->
-    forEachMixin.call @, (mx) => mx.prepare?.call @, props
+    forEachMixin.call @, (mx) =>
+      mx.prepare?.call @, props
 
   render: ->
     @prepared @renderComponent

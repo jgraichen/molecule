@@ -7,6 +7,9 @@ module.exports = (config) ->
           @submit()
           original? event
 
+    if @state.error
+      props.classList.push 'm-error'
+
   submit: ->
     return unless @props.onSubmit
 
@@ -15,12 +18,11 @@ module.exports = (config) ->
 
     promise
       .then =>
-        @setState error: false, => @props.onError?(false)
+        @setState error: false, =>
+          @props.onError?(false)
       .catch (err) =>
-        if err.message?
-          @setState error: true, =>
-            @refs['input'].getDOMNode().focus()
-            @props.onError? err.message
+        @setState error: true, =>
+          @props.onError? err.message, err
 
     @refs['indicator']?.track promise
 
