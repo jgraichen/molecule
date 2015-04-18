@@ -1,24 +1,14 @@
-React = require 'react/addons'
+Test = require '../../test'
 Input = require '../../input'
-
-$ = React.createElement
-render = React.addons.TestUtils.renderIntoDocument
-findTag = React.addons.TestUtils.findRenderedDOMComponentWithTag
-findCss = React.addons.TestUtils.findRenderedDOMComponentWithClass
-Simulate = React.addons.TestUtils.Simulate
 
 describe 'MaxLength', ->
   it 'should invoke callback when maxlength is reached', ->
-    spy   = jasmine.createSpy 'onMaxLength'
+    spy = jasmine.createSpy 'onMaxLength'
+    doc = Test.render ($) ->
+      $ Input, onMaxLength: spy, maxLength: 3
+    inp = doc.findByTag 'input'
 
-    # Should be included in Input by default
-    html  = render $ Input, onMaxLength: spy, maxLength: 3
-    input = findTag html, 'input'
-
-    do (el = input.getDOMNode()) ->
-      el = input.getDOMNode()
-      el.value = 'abc dh'
-
-      Simulate.change input, target: el
+    inp.dom.value = 'abc dh'
+    inp.change()
 
     expect(spy).toHaveBeenCalled()

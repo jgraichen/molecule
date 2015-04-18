@@ -6,6 +6,7 @@ Component = require './component'
 
 Focus = require './mixins/focus'
 Sized = require './mixins/sized'
+Submit = require './mixins/submit'
 Transform = require './mixins/transform'
 MaxLength = require './mixins/max-length'
 
@@ -13,6 +14,7 @@ class Input extends Component
   @include Focus, ref: 'input'
   @include MaxLength
   @include Transform
+  @include Submit
   @include Sized
 
   constructor: (props) ->

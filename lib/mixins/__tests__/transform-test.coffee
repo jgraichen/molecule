@@ -1,23 +1,13 @@
-React = require 'react/addons'
+Test = require '../../test'
 Input = require '../../input'
-
-$ = React.createElement
-render = React.addons.TestUtils.renderIntoDocument
-findTag = React.addons.TestUtils.findRenderedDOMComponentWithTag
-findCss = React.addons.TestUtils.findRenderedDOMComponentWithClass
-Simulate = React.addons.TestUtils.Simulate
 
 describe 'Transform', ->
   it 'should transform value on change', ->
-    # Should be included in Input by default
-    html  = render $ Input, transform: (value) -> value.toUpperCase()
-    input = findTag html, 'input'
+    doc = Test.render ($) ->
+      $ Input, transform: (value) -> value.toUpperCase()
+    inp = doc.findByTag 'input'
 
-    do (el = input.getDOMNode()) ->
-      el = input.getDOMNode()
-      el.value = 'abc dh'
+    inp.dom.value = 'abc dh'
+    inp.change()
 
-      Simulate.change input, target: el
-
-    do (el = input.getDOMNode()) ->
-      expect(el.value).toEqual 'ABC DH'
+    expect(inp.dom.value).toEqual 'ABC DH'
