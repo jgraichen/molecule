@@ -30,7 +30,7 @@ class Attachment extends React.Component
     @tether.destroy()
     document.body.removeChild @root
     document.removeEventListener 'mousedown', @handleEvent
-    document.removeEventListener 'focus', @handleEvent
+    document.removeEventListener 'focus', @handleEvent, true
 
   handleEvent: (e) =>
     node = e.target
