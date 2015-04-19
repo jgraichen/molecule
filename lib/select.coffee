@@ -25,7 +25,6 @@ class Select extends Button
     super props
 
     props.classList.push 'm-select'
-    props.classList.push 'active' if @state.active
 
     props.onMouseDown = do (original = props.onMouseDown) =>
       (e) =>
@@ -43,8 +42,9 @@ class Select extends Button
       onCloseRequest: =>
         @setState active: false
       $ Panel, null,
-        $ 'ul', null, @props.children.map (item) =>
-          $ 'li', null, item
+        $ 'ul', null, do =>
+          for item, index in @props.children
+            $ 'li', key: index, item
 
   renderChildren: (props) =>
     children = []

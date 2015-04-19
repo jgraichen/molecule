@@ -1,12 +1,19 @@
 #
+assign = require 'object-assign'
 React = require 'react'
 $ = React.createElement
 
 Component = require './component'
 
 class Link extends Component
+  constructor: (props) ->
+    super props
+
   prepare: (props) ->
     super props
+
+    props.classList.push 'focus' if @state.focus
+    props.classList.push 'active' if @state.active || @props.active
 
     if props.onAction?
       props.onClick = do (original = props.onClick) =>
