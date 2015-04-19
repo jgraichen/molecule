@@ -30,17 +30,16 @@ class ActivityIndicator extends Component
 
     props.classList.push 'm-activity-indicator'
 
-    if @state.tasks > 0
+    if @state.tasks > 0 || props.on
       props.classList.push 'm-active'
       props.children.push 'Loading...'
 
+    props.style ?= {}
+    props.style.width = props.size
+    props.style.height = props.size
+
   renderComponent: (props) ->
-    $ 'span',
-      className: props.className,
-      style:
-        width: props.size,
-        height: props.size
-      props.children
+    $ 'span', props
 
 
 module.exports = ActivityIndicator

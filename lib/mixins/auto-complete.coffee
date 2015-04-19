@@ -3,61 +3,56 @@
 React = require 'react'
 $ = React.createElement
 
+ActivityIndicator = require '../activity-indicator'
 Attachment = require '../attachment'
+Layered = require './layered'
+Panel = require '../panel'
+
+_renderItem = (render, item, index) ->
+  $ 'li',
+    key: index,
+    onClick: (e) =>\
+      @setState value: item.value, _acItems: null, _acDisabled: true, =>
+        @focus()
+        @setState _acDisabled: false
+    render item
+
+_renderPanel = (render) ->
+  if @state._acItems?.length > 0
+    $ Panel, null,
+      $ 'ul', null, do =>
+        for item, index in @state._acItems
+          _renderItem.call @, render, item, index
 
 module.exports = (config) ->
-  __renderItems = (items, props) ->
-    props.className ?= 'm-autocomplete'
-    props.className += ' focus' if @state.focus
-
-    $ 'div', props,
-      $ 'ul', null, do =>
-        for item, index in items
-          __renderItem.call @, item, index
-
-  __renderItem = (item, index) ->
-    $ 'li',
-      key: index
-      onClick: (e) =>
-        @setState value: item.value, __autocomplete_items: false, =>
-          @focus()
-      config.render item
-
   componentDidMount: ->
-    target = React.findDOMNode @
+    @_acLayer ?= new Layered.Layer =>
+      target = React.findDOMNode @
+      style  = minWidth: target.offsetWidth
 
-    props =
-      style: {width: target.offsetWidth}
+      $ Attachment,
+        style: style
+        target: target
+        onCloseRequest: => @setState _acItems: null
+        _renderPanel.call @, config.render
 
-    # @__autocomplete_attachment = new Attachment
-    #   target: target
-    #   constraints: [
-    #     { to: 'scrollParent', attachment: 'together' },
-    #     { to: 'window', attachment: 'together' }
-    #   ]
-    #   onCloseRequest: =>
-    #     @setState __autocomplete_items: null
-    #   render: =>
-    #     if @state && @state.__autocomplete_items
-    #       __renderItems.call @, @state.__autocomplete_items, props
+    @_acLayer.mount()
 
   componentDidUpdate: ->
-    # @__autocomplete_attachment.update()
+    @_acLayer.update()
 
   componentWillUnmount: ->
-    # @__autocomplete_attachment.destroy()
+    @_acLayer.unmount()
 
   prepare: (props) ->
     updateItems = (orig) =>
       (e) =>
-        if @state.__autocomplete_items == false
-          @state.__autocomplete_items = undefined
-        else
-          promise = config.query(e.target.value).then (items) =>
-            @setState __autocomplete_items: items if @state.focus
-          @refs['indicator']?.track?(promise)
+        unless @state._acDisabled
+          config.query(e.target.value).then (items) =>
+            if @state.focus
+              @setState _acItems: items
         orig? e
 
     props.onChange = do (orig = props.onChange) => updateItems orig
     props.onFocus = do (orig = props.onFocus) => updateItems orig
-    props.classList.push 'm-autocompleted'
+    props.onClick = do (orig = props.onClick) => updateItems orig

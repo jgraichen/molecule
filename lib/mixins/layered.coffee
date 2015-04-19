@@ -1,18 +1,16 @@
 React = require 'react'
 
 #
-module.exports = ->
+Layered = ->
   componentDidMount: ->
-    @_layerNode = document.createElement 'div'
-    document.body.appendChild @_layerNode
-
-    @_renderLayer()
+    @_layer ?= new Layered.Layer @renderLayer
+    @_layer.mount()
 
   componentDidUpdate: ->
-    @_renderLayer()
+    @_layer.update()
 
   componentWillUnmount: ->
-    React.unmountComponentAtNode @_layerNode
+    @_layer.unmount()
 
   _renderLayer: ->
     content = @renderLayer()
@@ -22,3 +20,25 @@ module.exports = ->
     else
       React.unmountComponentAtNode @_layerNode
 
+class Layered.Layer
+  constructor: (render) ->
+    @render = render
+
+  mount: =>
+    @layerNode = document.createElement 'div'
+    document.body.appendChild @layerNode
+
+    @update()
+
+  unmount: =>
+    React.unmountComponentAtNode @layerNode
+
+  update: =>
+    content = @render()
+
+    if content
+      React.render content, @layerNode
+    else
+      React.unmountComponentAtNode @layerNode
+
+module.exports = Layered
