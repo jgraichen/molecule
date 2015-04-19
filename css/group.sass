@@ -1,12 +1,13 @@
-%m-element
+//
+.m-element
   & ~ &
     margin-left: 0.4em
 
-%m-group
+.m-group
   display: inline-block
   white-space: nowrap
 
-  > %m-group-element
+  > .m-element
     margin: 0
     position: relative
     z-index: 0
@@ -28,9 +29,3 @@
 
     &.m-primary
       z-index: 3
-
-=m-group
-  @extend %m-group
-
-=m-element
-  @extend %m-element

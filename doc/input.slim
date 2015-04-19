@@ -1,0 +1,202 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Molecule - Input
+    link rel="stylesheet" href="example.css"
+    link rel="stylesheet" href="molecule.css"
+    script src="molecule.js"
+
+  body
+    coffee:
+      window.React = require 'react'
+      window.Molecule = require 'lib'
+      window.$ = React.createElement
+
+    header
+      a href="index.html" Index
+      h1 Molecule: Input & Form Control
+    article
+      h2 Simple input elements
+      section
+        markdown:
+          An `input` element. Molecule provides very basic styling using the default theme.
+
+              <input type="text" class="m-input" value="A given value"></input>
+
+        .example#example1
+          | <input type="text" class="m-input" value="A given value"></input>
+
+        markdown:
+          Example of React component:
+
+              $ Molecule.Input, defaultValue: 'A given value'
+
+              $ Molecule.Input, size: 'shortest', placeholder: 'Shortest input'
+              $ Molecule.Input, size: 'shorter', placeholder: 'Shorter input'
+              $ Molecule.Input, size: 'short', placeholder: 'Short input'
+              $ Molecule.Input, size: 'default', placeholder: 'Default input'
+              $ Molecule.Input, size: 'long', placeholder: 'Long input'
+              $ Molecule.Input, size: 'longer', placeholder: 'Longer input'
+              $ Molecule.Input, size: 'fluid', placeholder: 'Fluid input'
+
+              $ Molecule.Input, disabled: true, placeholder: 'Disabled'
+
+        .example
+          #example2
+          coffee:
+            root = document.getElementById 'example2'
+            elem = $ 'div', null,
+              $ 'p', null,
+                $ Molecule.Input, defaultValue: 'A given value'
+              $ 'p', null,
+                $ Molecule.Input, size: 'shortest', placeholder: 'Shortest input'
+              $ 'p', null,
+                $ Molecule.Input, size: 'shorter', placeholder: 'Shorter input (5em)'
+              $ 'p', null,
+                $ Molecule.Input, size: 'short', placeholder: 'Short input (10em)'
+              $ 'p', null,
+                $ Molecule.Input, size: 'default', placeholder: 'Default input (20em)'
+              $ 'p', null,
+                $ Molecule.Input, size: 'long', placeholder: 'Long input (30em)'
+              $ 'p', null,
+                $ Molecule.Input, size: 'longer', placeholder: 'Longer input (40em)'
+              $ 'p', null,
+                $ Molecule.Input, size: 'fluid', placeholder: 'Fluid input'
+              $ 'p', null,
+                $ Molecule.Input, disabled: true, placeholder: 'Disabled'
+
+            React.render elem, root
+
+        markdown:
+          A group can be used to combine several input elements.
+
+          This example additionally demonstrate the usage of the `onMaxLength`
+          used to jump top the next input element.
+
+              next = (e) ->
+                for el in e.target.parentNode.parentNode.getElementsByTagName 'input'
+                  if found
+                    el.focus()
+                    return
+
+                  found = true if el == e.target
+                return
+
+              $ Molecule.Group, null,
+                $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
+                $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
+                $ Molecule.Input
+
+        .example
+          #example3
+          coffee:
+            root = document.getElementById 'example3'
+            next = (e) ->
+              for el in e.target.parentNode.parentNode.getElementsByTagName 'input'
+                if found
+                  el.focus()
+                  return
+
+                found = true if el == e.target
+              return
+
+            elem = $ 'div', null,
+              $ Molecule.Group, null,
+                $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
+                $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
+                $ Molecule.Input
+
+            React.render elem, root
+
+        markdown:
+          Specify a `transform` function that will be applied on all inputs:
+
+              upcase = (value) -> value.toUpperCase()
+              numeric = (value) -> value.replace /[^0-9]/g, ''
+
+              $ Molecule.Input, size: 'short', transform: upcase
+              $ Molecule.Input, size: 'short', transform: numeric
+
+        .example
+          #example4
+          coffee:
+            root = document.getElementById 'example4'
+            upcase = (value) -> value.toUpperCase()
+            numeric = (value) -> value.replace /[^0-9]/g, ''
+
+            elem = $ 'div', null,
+              $ Molecule.Input, size: 'short', transform: upcase
+              ' '
+              $ Molecule.Input, size: 'short', transform: numeric
+
+            React.render elem, root
+
+        h2 AutoComplete extensions
+        markdown:
+          See code example:
+
+              auto = Molecule.Mixins.AutoComplete
+                query: (value) ->
+                  new Promise (resolve) ->
+                    resolve [{value: 'Hamlet, Prince of Denmark', author: 'William Shakespear'},
+                     {value: 'Romeo and Juliet', author: 'William Shakespear'},
+                     {value: 'Die Leiden des jungen Werthers', author: 'Johann Wolfgang von Goethe'}]
+
+                render: (item) ->
+                  $ 'span', null,
+                    $ 'strong', null, item.value
+                    ' '
+                    $ 'em', null, item.author
+
+              # Add an indicator for async activity
+              indicator = Molecule.Mixins.Indicator
+
+              elem = $ 'div', null,
+                $ Molecule.Input, size: 'long', mixins: [auto, indicator]
+
+        .example
+          #example5
+          coffee:
+            root = document.getElementById 'example5'
+            Sifter = require 'sifter'
+
+            ITEMS = [
+              {value: 'Hamlet, Prince of Denmark', author: 'William Shakespear'}
+              {value: 'Romeo and Juliet', author: 'William Shakespear'}
+              {value: 'Die Leiden des jungen Werthers', author: 'Johann Wolfgang von Goethe'}
+            ]
+
+            sifter = new Sifter ITEMS
+
+            auto = Molecule.Mixins.AutoComplete
+              query: (value) ->
+                new Promise (resolve) ->
+                  setTimeout =>
+                    results = sifter.search value, fields: ['value', 'author']
+                    resolve(ITEMS[item.id] for item in results.items)
+                  , 1000
+
+              render: (item) ->
+                $ 'span', null,
+                  $ 'strong', null, item.value
+                  ' '
+                  $ 'em', null, item.author
+
+            indicator = Molecule.Mixins.ActivityIndicator()
+
+            elem = $ 'div', null,
+              $ Molecule.Input, size: 'long', mixins: [auto, indicator]
+
+            React.render elem, root
+
+        markdown:
+          Please notice:
+
+          * The function given as `query` *must* return a JavaScript
+            Promise compatible object.
+          * The `render` function will be called for all items and
+            rendered within a `li` tag.
+          * The autocomplete dropdown will be outside of the react DOM
+            appended at the end of the document. Remember this when writing
+            custom CSS.

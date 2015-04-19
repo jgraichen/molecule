@@ -1,0 +1,58 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Molecule - Buttons
+    link rel="stylesheet" href="example.css"
+    link rel="stylesheet" href="molecule.css"
+    script src="molecule.js"
+
+  body
+    coffee:
+      window.React = require 'react'
+      window.Molecule = require 'lib'
+      window.$ = React.createElement
+
+    header
+      a href="index.html" Index
+      h1 Molecule: Buttons
+    article
+      h2 Simple buttons
+      section
+        markdown:
+          A `button` element. Molecule provides very basic styling using the default theme.
+
+              <button class="m-button">Button</button>
+              <a class="m-button" href="#">Link</a>
+
+              <button class="m-button primary">Primary</button>
+              <button class="m-button" disabled>Disabled</button>
+              <button class="m-button small">Small</button>
+
+        .example#example1
+          | <button class="m-button">Button</button>
+          | <a class="m-button" href="#">Link</a>
+          | <button class="m-button primary">Primary</button>
+          | <button class="m-button" disabled>Disabled</button>
+          | <button class="m-button small">Small</button>
+
+        markdown:
+          Example of React component:
+
+              $ Molecule.Button, null, 'Button'
+              $ Molecule.Button, href: '#', 'Link'
+              $ Molecule.Button, primary: true, 'Primary'
+              $ Molecule.Button, disabled: true, 'Disabled'
+              $ Molecule.Button, className: 'small', 'Small'
+
+        .example#example2
+        coffee:
+          root = document.getElementById 'example2'
+          elem = $ 'div', null,
+            $ Molecule.Button, null, 'Button'
+            $ Molecule.Button, href: '#', 'Link'
+            $ Molecule.Button, primary: true, 'Primary'
+            $ Molecule.Button, disabled: true, 'Disabled'
+            $ Molecule.Button, className: 'small', 'Small'
+
+          React.render elem, root

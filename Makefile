@@ -10,10 +10,10 @@ BROWSERIFY   = $(NODE) node_modules/.bin/browserify --extension=".coffee"
 AUTOPREFIXER = $(NODE) node_modules/.bin/autoprefixer
 
 COFFEE_FILES = $(shell find lib -name '*.coffee')
-SASS_FILES   = $(shell find lib -name '*.sass')
-SLIM_FILES   = $(shell find lib -name '*.slim')
+SASS_FILES   = $(shell find css -name '*.sass')
+SLIM_FILES   = $(shell find doc -name '*.slim')
 
-EXAMPLES = $(SLIM_FILES:lib/%.slim=examples/%.html)
+EXAMPLES = $(SLIM_FILES:doc/%.slim=examples/%.html)
 
 default: examples test
 
@@ -25,9 +25,9 @@ examples/molecule.js: $(COFFEE_FILES)
 
 examples/molecule.css: $(SASS_FILES)
 	@mkdir -p examples
-	$(SASSC) lib/index.sass | $(AUTOPREFIXER) > examples/molecule.css
+	$(SASSC) css/index.sass | cat - doc/example.css | $(AUTOPREFIXER) > examples/molecule.css
 
-examples/%.html: lib/%.slim
+examples/%.html: doc/%.slim
 	@mkdir -p $(@D)
 	$(SLIMC) $< > $@
 

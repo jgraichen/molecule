@@ -1,0 +1,72 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Molecule - Groups
+    link rel="stylesheet" href="example.css"
+    link rel="stylesheet" href="molecule.css"
+    script src="molecule.js"
+
+  body
+    coffee:
+      window.React = require 'react'
+      window.Molecule = require 'lib'
+      window.$ = React.createElement
+
+    header
+      a href="index.html" Index
+      h1 Molecule: Groups
+    article
+      h2 Simple button groups
+      section
+        markdown:
+          Several buttons can be grouped using a group molecule.
+
+              <div class="m-group">
+                <button class="m-button">A</button>
+                <button class="m-button">B</button>
+                <button class="m-button primary">C</button>
+                <button class="m-button">D</button>
+              </div>
+        .example
+          | <div class="m-group">
+          | <button class="m-button">A</button>
+          | <button class="m-button">B</button>
+          | <button class="m-button primary">C</button>
+          | <button class="m-button">D</button>
+          | </div>
+        markdown:
+          Example of React component:
+
+              $ Molecule.Group, null,
+                $ Molecule.Button, null, 'A'
+                $ Molecule.Button, null, 'B'
+                $ Molecule.Button, primary: true, 'C'
+                $ Molecule.Button, null, 'D'
+        .example#example1
+        coffee:
+          root = document.getElementById 'example1'
+          elem = $ 'div', null,
+            $ Molecule.Group, null,
+              $ Molecule.Button, null, 'A'
+              $ Molecule.Button, null, 'B'
+              $ Molecule.Button, primary: true, 'C'
+              $ Molecule.Button, null, 'D'
+
+          React.render elem, root
+
+      h2 Buttons & Inputs
+      section
+        markdown:
+          Combine buttons with input fields.
+
+        .example#example2
+        coffee:
+          root = document.getElementById 'example2'
+          elem = $ 'div', null, [
+            $ Molecule.Input
+            $ Molecule.Button, null, [ 'Reset' ]
+            $ Molecule.Button, primary: true, [ 'Save' ]
+          ]
+
+          React.render elem, root

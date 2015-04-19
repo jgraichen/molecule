@@ -1,13 +1,8 @@
-@import group
-@import control
-
+//
 $m-input-padding: 5px 8px !default
 
 //
-%m-input
-  +m-element
-  +m-control
-
+=m-input
   display: inline-block
   box-sizing: border-box
 
@@ -43,9 +38,6 @@ $m-input-padding: 5px 8px !default
     padding: $m-input-padding
     right: 0
     top: 0
-
-=m-input
-  @extend %m-input
 
 =m-input-variant($focus)
   &:focus, &.focus, &:hover

@@ -1,12 +1,8 @@
-@import utilities
-@import control
+//
+$m-button-padding: 5px 8px !default
 
-%m-select
-  +m-control
-
-=m-select
-  @extend %m-select
-
+//
+=m-button
   display: inline-block
   box-sizing: border-box
 
@@ -21,8 +17,11 @@
   background-image: none
   user-select: none
 
+  text-align: center
   cursor: pointer
-  padding: 7px 10px 6px
+
+  font-weight: bold
+  padding: $m-button-padding
 
   border-radius: 2px
   border: 1px solid rgba(0, 0, 0, .2)
@@ -41,41 +40,40 @@
   & .m-icon
     margin-right: 0.4em
 
-=m-select-variant($color, $text, $border: rgba(0, 0, 0, .2))
+=m-button-variant($color, $text, $border: rgba(0, 0, 0, .2))
   color: $text
 
-  transition: border-color .2s, box-shadow .2s
-
-  @if lightness($text) < 40%
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3)
+  @if lightness($text) < 50%
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2)
   @else
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3)
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2)
 
-  border-color: $border
+  border-color: darken($color, 10%)
+
+  background-image: linear-gradient(rgba(255, 255, 255, 0.2), transparent)
   background-color: $color
-  background-image: linear-gradient($color, darken($color, 3%))
 
-  &:hover
-    color: $text
-    border-color: darken($border, 10%)
-    background-color: darken($color, 3%)
-    background-image: linear-gradient($color, darken($color, 6%))
-
-  &:focus, &.focus
+  &.focus
     outline: thin dotted
     outline: 5px auto -webkit-focus-ring-color
     outline-offset: -2px
 
+  &:hover, &.hover
+    color: $text
+    text-decoration: none
+    border-color: rgba(0, 0, 0, 0.21)
+    background-color: darken($color, 5%)
+
   &:active, &.active
-    box-shadow: inset 0 1px .2em rgba(0, 0, 0, .25)
-    border-color: darken($border, 8%)
-    background-color: darken($color, 3%)
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2)
+    border-color: rgba(0, 0, 0, 0.3)
+    background-color: darken($color, 8%)
     background-image: none
 
-  &[disabled], fieldset[disabled] &
-    &:hover, &:focus, &:active, &.focus, &.active, &
-      opacity: .6
+  &[disabled]
+    &:hover, &:focus, &.hover, &.focus, &:active, &.active, &
+      cursor: default
+      opacity: 0.6
       box-shadow: none
-      border-color: $border
       background-color: $color
       background-image: none

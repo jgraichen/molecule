@@ -1,0 +1,9 @@
+@import variables
+@import mixins/input
+
+.m-input
+  @extend %m-control !optional
+  @extend .m-element !optional
+
+  +m-input
+  +m-input-variant($m-brightblue)

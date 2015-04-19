@@ -1,12 +1,12 @@
 @import variables
-@import sass/button
+@import mixins/button
 
 .m-button
+  @extend %m-control !optional
+  @extend .m-element !optional
+
   +m-button
   +m-button-variant($m-silver, $m-dark)
 
   &.m-primary
     +m-button-variant($m-brightblue, $m-white)
-
-  & ~ &
-    margin-left: 3px
