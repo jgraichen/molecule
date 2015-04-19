@@ -9,55 +9,55 @@ excludeMethods =
   included: true
 
 forEachMixin = (fn) ->
-  forEachMixinSuper.call @.constructor, fn
-  fn mx for mx in @props.mixins if @props.mixins?
+  forEachClassMixin.call @.constructor, fn
 
-forEachMixinSuper = (fn) ->
-  if @__super__?
-    forEachMixinSuper.call @__super__, fn
-  fn mx for mx in @__mixins__ if @__mixins__?
+  if @props.mixins?
+    for mx in @props.mixins
+      fn mx
+
+forEachClassMixin = (fn) ->
+  if @mixins?
+    for mx in @mixins
+      fn mx
 
 class Component extends React.Component
-  #
-  # Include mixin to class.
-  #
-  @include = (mixin, config = {}) ->
+  @mixins: []
+  @include: (mixin, cfg) ->
     if typeof mixin == 'function'
-      mixin = mixin config
+      mixin = mixin cfg
 
     for name, _ of mixin when not excludeMethods[name]
-      @prototype[name] = do (fn = name, mx = mixin) => -> mx[fn].apply @, arguments
+      @::[name] = do (fn = name, mx = mixin) =>
+        -> mx[fn].apply @, arguments
 
-    mixin.included?.call @
-
-    @__mixins__ ?= []
-    @__mixins__.push mixin
+    @mixins = @mixins.slice 0
+    @mixins.push mixin
 
   constructor: (props) ->
     super props
 
     @state = {}
 
-  componentDidMount: ->
+  componentDidMount: =>
     forEachMixin.call @, (mx) =>
       mx.componentDidMount?.call @
 
-  componentWillUnmount: ->
+  componentWillUnmount: =>
     forEachMixin.call @, (mx) =>
       mx.componentWillUnmount?.call @
 
-  componentDidUpdate: ->
+  componentDidUpdate: =>
     forEachMixin.call @, (mx) =>
       mx.componentDidUpdate?.call @
 
-  prepare: (props) ->
+  prepare: (props) =>
     forEachMixin.call @, (mx) =>
       mx.prepare?.call @, props
 
-  render: ->
+  render: =>
     @prepared @renderComponent
 
-  prepared: (fn) ->
+  prepared: (fn) =>
     # Create new props object with empty
     # `className` and `classList`. This way we do not have
     # to check if `className` exists before splitting nor
