@@ -29,23 +29,23 @@ module.exports = (config) ->
     props =
       style: {width: target.offsetWidth}
 
-    @__autocomplete_attachment = new Attachment
-      target: target
-      constraints: [
-        { to: 'scrollParent', attachment: 'together' },
-        { to: 'window', attachment: 'together' }
-      ]
-      onCloseRequest: =>
-        @setState __autocomplete_items: null
-      render: =>
-        if @state && @state.__autocomplete_items
-          __renderItems.call @, @state.__autocomplete_items, props
+    # @__autocomplete_attachment = new Attachment
+    #   target: target
+    #   constraints: [
+    #     { to: 'scrollParent', attachment: 'together' },
+    #     { to: 'window', attachment: 'together' }
+    #   ]
+    #   onCloseRequest: =>
+    #     @setState __autocomplete_items: null
+    #   render: =>
+    #     if @state && @state.__autocomplete_items
+    #       __renderItems.call @, @state.__autocomplete_items, props
 
   componentDidUpdate: ->
-    @__autocomplete_attachment.update()
+    # @__autocomplete_attachment.update()
 
   componentWillUnmount: ->
-    @__autocomplete_attachment.destroy()
+    # @__autocomplete_attachment.destroy()
 
   prepare: (props) ->
     updateItems = (orig) =>

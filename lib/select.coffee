@@ -2,9 +2,14 @@
 React = require 'react'
 $ = React.createElement
 
-Component = require './component'
+Layered = require './mixins/layered'
 
-class Select extends Component
+Attachment = require './attachment'
+Button = require './button'
+
+class Select extends Button
+  @include Layered
+
   constructor: (props) ->
     super props
 
@@ -15,14 +20,28 @@ class Select extends Component
 
     props.classList.push 'm-select'
 
-  renderComponent: (props) =>
-    $ 'button', props, @renderChildren props
+    props.onMouseDown = (original = props.onMouseDown) =>
+      (e) =>
+        e.preventDefault()
+        @setState open: true
+
+  renderLayer: =>
+    return unless @state.open
+
+    $ Attachment, target: React.findDOMNode(@), [
+      'Text'
+    ]
 
   renderChildren: (props) =>
+    children = []
+
     if @state.index < 0
-      props.placeholder
+      children.push props.placeholder
     else
-      props.children[@state.index]
+      children.push props.children[@state.index]
+
+    children.push $ 'span', className: 'm-handle'
+    children
 
 class Select.Item extends React.Component
   render: =>
