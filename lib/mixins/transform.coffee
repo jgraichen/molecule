@@ -6,7 +6,10 @@ module.exports = ->
   prepare: (props) ->
     return unless props.transform?
 
-    props.onChange = do (original = props.onChange) =>
-      (e) =>
-        e.target.value = props.transform e.target.value
-        original? e
+    do (transform = props.transform) =>
+      delete props.transform
+
+      props.onChange = do (original = props.onChange) =>
+        (e) =>
+          e.target.value = transform e.target.value
+          original? e

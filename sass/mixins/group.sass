@@ -1,10 +1,12 @@
-@import mixins/control
+%m-element
+  & ~ &
+    margin-left: 0.4em
 
-.m-group
+%m-group
   display: inline-block
   white-space: nowrap
 
-  > %m-control
+  > %m-group-element
     margin: 0
     position: relative
     z-index: 0
@@ -21,8 +23,14 @@
     &:hover
       z-index: 1
 
-    &.primary
+    &:focus, &.focus
       z-index: 2
 
-    &:focus, &.focus
+    &.m-primary
       z-index: 3
+
+=m-group
+  @extend %m-group
+
+=m-element
+  @extend %m-element

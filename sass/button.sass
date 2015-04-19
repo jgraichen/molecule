@@ -1,0 +1,12 @@
+@import variables
+@import sass/button
+
+.m-button
+  +m-button
+  +m-button-variant($m-silver, $m-dark)
+
+  &.m-primary
+    +m-button-variant($m-brightblue, $m-white)
+
+  & ~ &
+    margin-left: 3px

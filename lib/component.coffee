@@ -77,9 +77,6 @@ class Component extends React.Component
     # Run prepare function
     @prepare? props
 
-    # Apply extensions if appropriate.
-    @applyExtensions? props
-
     # Override `className` with classes from `classList`.
     # The `className` property should not be used in `fn`
     # not in extensions.

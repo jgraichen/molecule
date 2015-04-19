@@ -28,6 +28,9 @@ class Input extends Component
   setValue: (value) ->
     @setState value: value
 
+  focus: =>
+    @refs['input']?.getDOMNode().focus()
+
   prepare: (props) ->
     super props
 
@@ -44,12 +47,6 @@ class Input extends Component
         @setState value: e.target.value
 
   renderComponent: (props) ->
-    className = props.className
-    delete props.className
-
-    $ 'div', className: className, [
-      $ 'span', key: 'ext', className: 'm-input-ext', props.children
-      $ 'input', props, []
-    ]
+    $ 'input', props, []
 
 module.exports = Input

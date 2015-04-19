@@ -1,8 +1,8 @@
 @import '../variables'
 
-.m-input.m-autocompleted
-  &:focus, &.focus, &:active, &.active
-    box-shadow: none
+// .m-input.m-autocompleted
+//   &:focus, &.focus, &:active, &.active
+//     box-shadow: none
 
 .m-autocomplete
   box-sizing: border-box
@@ -30,18 +30,16 @@
   &.focus
     border-color: $m-brightblue
 
-  .tether-element-attached-top:not(.tether-abutted-top) &
+  .tether-element-attached-top &
     border-top: none
-    margin-top: -2px
-    padding-top: 2px
+    margin-top: -1px
 
     ul
       border-top: 1px solid $m-silver
 
-  .tether-abutted-top &
+  .tether-element-attached-bottom &
     border-bottom: none
-    margin-bottom: -2px
-    padding-bottom: 2px
+    margin-bottom: -1px
 
     ul
       border-bottom: 1px solid $m-silver

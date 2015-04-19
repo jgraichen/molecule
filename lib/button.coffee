@@ -4,8 +4,12 @@ $ = React.createElement
 
 Link = require './link'
 
+Sized = require './mixins/sized'
+
 class Button extends Link
-  prepare: (props) ->
+  @include Sized
+
+  prepare: (props) =>
     super props
 
     props.classList.push 'm-button'
@@ -18,9 +22,13 @@ class Button extends Link
 
     props.component ?= if props.href? then 'a' else 'button'
 
-  renderComponent: (props) ->
+  renderComponent: (props) =>
     {component} = props
+    delete props.component
 
-    $ component, props, props.children
+    $ component, props, @renderChildren props
+
+  renderChildren: (props) =>
+    props.children
 
 module.exports = Button

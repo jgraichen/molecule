@@ -51,7 +51,7 @@ class Attachment
     React.unmountComponentAtNode @root
 
     @tether.destroy()
-    document.body.removeChild @__root
+    document.body.removeChild @root
     document.removeEventListener 'mousedown', @handleCloseRequest
     document.removeEventListener 'focus', @handleCloseRequest
 

@@ -1,14 +1,13 @@
 
-// Return pixel size in rem.
-//
-// Assumes default size of 16px.
 //
 @function rem($size)
   @return ($size / 16px) * 1rem
 
+//
 @function strip-unit($num)
   @return $num / ($num * 0 + 1)
 
+//
 @function scale($factor, $values)
   @if length($values) == 1
     @return nth($values, 1) * $factor
@@ -21,7 +20,6 @@
 
   @error 'Unsupported value count'
 
-// Wrap a property with rem units and fallback
 //
 @mixin rem($property, $values)
   $num: length($values)
@@ -44,3 +42,14 @@
 
   #{$property}: $pxValues
   #{$property}: $remValues
+
+//
+@mixin font-size($size)
+  font-size: $size
+  font-size: rem($size)
+
+//
+@mixin font-reset
+  font-size: inherit
+  font-family: inherit
+  line-height: inherit

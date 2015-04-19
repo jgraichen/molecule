@@ -1,0 +1,88 @@
+@import group
+@import control
+@import utilities
+
+$m-button-padding: 5px 8px !default
+
+//
+%m-button
+  +m-element
+  +m-control
+
+  display: inline-block
+  box-sizing: border-box
+
+  font-size: inherit
+  font-weight: inherit
+  font-family: inherit
+  line-height: inherit
+  white-space: nowrap
+
+  vertical-align: middle
+  touch-action: manipulation
+  background-image: none
+  user-select: none
+
+  text-align: center
+  cursor: pointer
+
+  font-weight: bold
+  padding: $m-button-padding
+
+  border-radius: 2px
+  border: 1px solid rgba(0, 0, 0, .2)
+
+  transition-duration: 0.1s
+  transition-property: background-color, color, border-color
+
+  &, &:hover, &.hover, &:focus, &.focus, &:active, &.active
+    text-decoration: none
+    outline: 0
+
+  &::-moz-focus-inner
+    border: 0
+    padding: 0
+
+  & .m-icon
+    margin-right: 0.4em
+
+=m-button
+  @extend %m-button
+
+=m-button-variant($color, $text, $border: rgba(0, 0, 0, .2))
+  color: $text
+
+  @if lightness($text) < 50%
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2)
+  @else
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2)
+
+  border-color: darken($color, 10%)
+
+  background-image: linear-gradient(rgba(255, 255, 255, 0.2), transparent)
+  background-color: $color
+
+  &.focus
+    outline: thin dotted
+    outline: 5px auto -webkit-focus-ring-color
+    outline-offset: -2px
+
+  &:hover, &.hover
+    color: $text
+    text-decoration: none
+    border-color: rgba(0, 0, 0, 0.21)
+    background-color: darken($color, 5%)
+
+  &:active, &.active
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2)
+    border-color: rgba(0, 0, 0, 0.3)
+    background-color: darken($color, 8%)
+    background-image: none
+
+  &[disabled]
+    &:hover, &:focus, &.hover, &.focus, &:active, &.active, &
+      cursor: default
+      opacity: 0.6
+      box-shadow: none
+      background-color: $color
+      background-image: none

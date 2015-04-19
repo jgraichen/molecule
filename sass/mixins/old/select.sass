@@ -1,11 +1,14 @@
+@import utilities
 @import control
-@import functions
 
-// All button-like elements should extend this to work
-// with e.g. button groups
-%m-button
+%m-select
+  +m-control
+
+=m-select
+  @extend %m-select
+
   display: inline-block
-  margin-bottom: 0
+  box-sizing: border-box
 
   font-size: inherit
   font-weight: inherit
@@ -13,47 +16,35 @@
   line-height: inherit
   white-space: nowrap
 
-  text-align: center
   vertical-align: middle
   touch-action: manipulation
-
-  cursor: pointer
   background-image: none
   user-select: none
 
-  border: 1px solid transparent
+  cursor: pointer
+  padding: 7px 10px 6px
+
   border-radius: 2px
+  border: 1px solid rgba(0, 0, 0, .2)
 
-  &, &:hover, &.hover, &:focus, &.focus
+  transition-duration: 0.1s
+  transition-property: background-color, color, border-color
+
+  &, &:hover, &.hover, &:focus, &.focus, &:active, &.active
     text-decoration: none
-
-  &:active, &.active
-    background-image: none
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .2)
-
-  &[disabled], &.disabled, fieldset[disabled] &
-    cursor: default
-    pointer-events: none
-    opacity: .65
-    box-shadow: none
+    outline: 0
 
   &::-moz-focus-inner
     border: 0
     padding: 0
 
-@mixin m-button
-  @extend %m-button
-  @extend %m-control
+  & .m-icon
+    margin-right: 0.4em
 
-// Shared static button styling (variant) code
-%m-button-variant
-  outline: 1px solid transparent
-  outline-offset: -2px
-  transition: border-color .2s, box-shadow .2s
-
-@mixin m-button-variant($color, $text, $border: rgba(0, 0, 0, .2))
-  @extend %m-button-variant
+=m-select-variant($color, $text, $border: rgba(0, 0, 0, .2))
   color: $text
+
+  transition: border-color .2s, box-shadow .2s
 
   @if lightness($text) < 40%
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3)
