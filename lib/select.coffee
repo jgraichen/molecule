@@ -2,35 +2,49 @@
 React = require 'react'
 $ = React.createElement
 
+Resizable = require './mixins/resizable'
 Layered = require './mixins/layered'
 
 Attachment = require './attachment'
 Button = require './button'
+Panel = require './panel'
 
 class Select extends Button
   @include Layered
+  @include Resizable
 
   constructor: (props) ->
     super props
 
     @state.index = 0
 
+  onResize: (e) =>
+    @forceUpdate()
+
   prepare: (props) =>
     super props
 
     props.classList.push 'm-select'
+    props.classList.push 'active' if @state.active
 
-    props.onMouseDown = (original = props.onMouseDown) =>
+    props.onMouseDown = do (original = props.onMouseDown) =>
       (e) =>
-        e.preventDefault()
-        @setState open: true
+        @setState active: !@state.active
 
   renderLayer: =>
-    return unless @state.open
+    return unless @state.active
 
-    $ Attachment, target: React.findDOMNode(@), [
-      'Text'
-    ]
+    target = React.findDOMNode @
+    style  = minWidth: target.offsetWidth
+
+    $ Attachment,
+      style: style
+      target: target
+      onCloseRequest: =>
+        @setState active: false
+      $ Panel, null,
+        $ 'ul', null, @props.children.map (item) =>
+          $ 'li', null, item
 
   renderChildren: (props) =>
     children = []

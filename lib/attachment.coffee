@@ -1,5 +1,6 @@
 #
 Tether = require 'tether/tether'
+assign = require 'object-assign'
 React = require 'react'
 $ = React.createElement
 
@@ -18,7 +19,10 @@ class Attachment extends React.Component
       constraints: @props.constraints
       targetAttachment: @props.targetAttachment || 'bottom left'
 
-    @update()
+    @componentDidUpdate()
+
+  componentDidUpdate: =>
+    React.render @renderAttachment(), @root, => @tether?.position()
 
   componentWillUnmount: =>
     React.unmountComponentAtNode @root
@@ -32,19 +36,24 @@ class Attachment extends React.Component
     node = e.target
 
     while node != null
-      return true if node == @root || node == @target
+      return true if node == @root || node == @props.target
       node = node.parentNode
 
     @props.onCloseRequest?()
     true
 
-  update: =>
-    React.render @renderAttachment(), @root, => @tether?.position()
-
   render: =>
     null
 
   renderAttachment: =>
-    $ 'div', null, @props.children
+    props = assign {}, @props
+
+    delete props.target
+    delete props.attachment
+    delete props.constraints
+    delete props.onCloseRequest
+    delete props.targetAttachment
+
+    $ 'div', props
 
 module.exports = Attachment

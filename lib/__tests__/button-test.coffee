@@ -21,14 +21,6 @@ describe 'Button', ->
 
     expect(btn.dom.className).toContain('m-primary');
 
-  it 'should have active class', ->
-    doc = Test.render ($) ->
-      $ Button, active: true, 'Button text'
-
-    btn = doc.findByTag 'button'
-
-    expect(btn.dom.className).toContain('m-active');
-
   it 'should have title attr', ->
     doc = Test.render ($) ->
       $ Button, title: 'Title text', 'Button text'

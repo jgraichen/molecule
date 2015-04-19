@@ -8,8 +8,6 @@ class Link extends Component
   prepare: (props) ->
     super props
 
-    props.classList.push 'm-active' if props.active
-
     if props.onAction?
       props.onClick = do (original = props.onClick) =>
         (event) ->

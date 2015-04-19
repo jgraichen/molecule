@@ -18,7 +18,7 @@ module.exports = ->
     content = @renderLayer()
 
     if content
-      React.render @renderLayer(), @_layerNode
+      React.render content, @_layerNode
     else
       React.unmountComponentAtNode @_layerNode
 
