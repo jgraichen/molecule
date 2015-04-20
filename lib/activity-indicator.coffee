@@ -2,8 +2,6 @@
 React = require 'react'
 $ = React.createElement
 
-css = require './util/css'
-
 Component = require './component'
 
 class ActivityIndicator extends Component

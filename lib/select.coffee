@@ -2,12 +2,12 @@
 React = require 'react'
 $ = React.createElement
 
+Attachment = require './attachment'
 Resizable = require './mixins/resizable'
 Layered = require './mixins/layered'
-
-Attachment = require './attachment'
 Button = require './button'
 Panel = require './panel'
+util = require './util'
 
 class Select extends Button
   @include Layered
@@ -20,6 +20,9 @@ class Select extends Button
 
   onResize: (e) =>
     @forceUpdate()
+
+  getValue: =>
+    @props.items[@state.index]
 
   prepare: (props) =>
     super props
@@ -43,8 +46,16 @@ class Select extends Button
         @setState active: false
       $ Panel, null,
         $ 'ul', null, do =>
-          for item, index in @props.children
-            $ 'li', key: index, item
+          @renderItem item, index for item, index in @props.items
+
+  renderItem: (item, index) =>
+    $ 'li',
+      key: index,
+      onClick: (e) =>
+        if util.isPrimaryButton e
+          e.preventDefault()
+          @setState index: index
+      @props.render item
 
   renderChildren: (props) =>
     children = []
@@ -52,13 +63,9 @@ class Select extends Button
     if @state.index < 0
       children.push props.placeholder
     else
-      children.push props.children[@state.index]
+      children.push @props.render props.items[@state.index]
 
     children.push $ 'span', className: 'm-handle'
     children
-
-class Select.Item extends React.Component
-  render: =>
-    $ 'span', null, @props.children
 
 module.exports = Select

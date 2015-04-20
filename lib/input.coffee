@@ -31,6 +31,9 @@ class Input extends Component
   focus: =>
     @refs['input']?.getDOMNode().focus()
 
+  clear: =>
+    @setState value: ''
+
   prepare: (props) ->
     super props
 

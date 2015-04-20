@@ -41,7 +41,7 @@ $m-button-padding: 5px 12px !default
   & .m-icon
     margin-right: 0.4em
 
-=m-button-variant($color, $text, $border: rgba(0, 0, 0, .2), $focus: none)
+=m-button-variant($color, $text, $focus: none)
   color: $text
 
   @if lightness($text) < 50%
@@ -49,9 +49,9 @@ $m-button-padding: 5px 12px !default
   @else
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2)
 
-  border-color: $border
+  border-color: rgba(0, 0, 0, .1)
 
-  background-image: linear-gradient(rgba(255, 255, 255, 0.2), transparent)
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3), transparent)
   background-color: $color
 
   &:hover, &.hover
@@ -59,12 +59,12 @@ $m-button-padding: 5px 12px !default
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1)
     border-color: rgba(0, 0, 0, 0.21)
     text-decoration: none
-    background-color: $border
+    // background-color: darken($color, 3%)
 
   &:active, &.active
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.1)
     border-color: rgba(0, 0, 0, 0.3)
-    background-color: $border
+    background-color: darken($color, 5%)
     background-image: none
 
   &:focus, &.focus
