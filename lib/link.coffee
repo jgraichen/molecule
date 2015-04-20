@@ -1,5 +1,4 @@
 #
-assign = require 'object-assign'
 React = require 'react'
 $ = React.createElement
 
