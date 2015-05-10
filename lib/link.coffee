@@ -11,6 +11,9 @@ class Link extends Component
   prepare: (props) ->
     super props
 
+    props.role = 'link'
+    props.tabIndex = 0
+
     props.classList.push 'focus' if @state.focus
     props.classList.push 'active' if @state.active || @props.active
 

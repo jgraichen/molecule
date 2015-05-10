@@ -29,14 +29,12 @@ class Menu.Item extends Component
 
     props.classList.push 'm-menu-item'
 
-    props.component ?= Link
-
   renderComponent: (props) =>
     className = props.className
     delete props.className
 
     $ 'li',
       className: className
-      $ props.component, props, props.children
+      $ Link, props, props.children
 
 module.exports = Menu
