@@ -7,7 +7,5 @@ cache:
 install:
 - bundle install --path vendor/bundle
 - npm install
-before_script:
-- make
 script:
-- make test
+- make
