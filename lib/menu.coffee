@@ -28,14 +28,15 @@ class Menu.List extends Component
 class Menu.Item extends Component
   @include Focus
 
+  @defaultProps =
+    href: '#'
+    role: 'button'
+    tabIndex: -1
+
   prepare: (props) =>
     super props
 
     props.ref = '1'
-    props.href = '#'
-    props.role = 'button'
-    props.tabIndex = -1
-
     props.classList.push 'focus' if @state.focus
 
     props.onMouseMove = do (ref = props.ref, original = props.onMouseMove) =>

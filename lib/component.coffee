@@ -1,6 +1,7 @@
 #
-assign = require 'object-assign'
 React = require 'react'
+
+util = require './util'
 
 excludeMethods =
   componentDidMount: true,
@@ -35,7 +36,7 @@ class Component extends React.Component
     @mixins.push mixin
 
   constructor: (props) ->
-    super assign {}, @defaultProps, props
+    super util.copy @defaultProps, props
 
     @state = {}
 

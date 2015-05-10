@@ -1,8 +1,9 @@
 #
 Tether = require 'tether/tether'
-assign = require 'object-assign'
 React = require 'react'
 $ = React.createElement
+
+util = require './util'
 
 class Attachment extends React.Component
   componentDidMount: =>
@@ -46,7 +47,7 @@ class Attachment extends React.Component
     null
 
   renderAttachment: =>
-    props = assign {}, @props
+    props = util.copy @props
 
     delete props.target
     delete props.attachment

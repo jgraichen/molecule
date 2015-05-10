@@ -26,7 +26,6 @@
   "dependencies": {
     "coffeeify": "~1.0.0",
     "envify": "~3.2.0",
-    "object-assign": "^2.0.0",
     "react": "^0.13.1",
     "tether": "^0.6.5"
   },
