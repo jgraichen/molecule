@@ -7,9 +7,10 @@ ActivityIndicator = require '../activity-indicator'
 Attachment = require '../attachment'
 Layered = require './layered'
 Panel = require '../panel'
+Menu = require '../menu'
 
 _renderItem = (render, item, index) ->
-  $ 'li',
+  $ Menu.Item,
     key: index,
     onClick: (e) =>\
       @setState value: item.value, _acItems: null, _acDisabled: true, =>
@@ -20,7 +21,7 @@ _renderItem = (render, item, index) ->
 _renderPanel = (render) ->
   if @state._acItems?.length > 0
     $ Panel, null,
-      $ 'ul', null, do =>
+      $ Menu.List, null, do =>
         for item, index in @state._acItems
           _renderItem.call @, render, item, index
 

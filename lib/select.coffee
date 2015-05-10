@@ -7,6 +7,7 @@ Resizable = require './mixins/resizable'
 Layered = require './mixins/layered'
 Button = require './button'
 Panel = require './panel'
+Menu = require './menu'
 util = require './util'
 
 class Select extends Button
@@ -45,11 +46,11 @@ class Select extends Button
       onCloseRequest: =>
         @setState active: false
       $ Panel, null,
-        $ 'ul', null, do =>
+        $ Menu.List, null, do =>
           @renderItem item, index for item, index in @props.items
 
   renderItem: (item, index) =>
-    $ 'li',
+    $ Menu.Item,
       key: index,
       onClick: (e) =>
         if util.isPrimaryButton e
