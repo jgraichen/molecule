@@ -5,6 +5,8 @@ $ = React.createElement
 Component = require './component'
 Link = require './link'
 
+Focus = require './mixins/focus'
+
 class Menu extends Component
   prepare: (props) =>
     super props
@@ -24,19 +26,26 @@ class Menu.List extends Component
     $ 'ul', props, props.children
 
 class Menu.Item extends Component
+  @include Focus
+
   prepare: (props) =>
     super props
 
-    props.classList.push 'm-menu-item'
+    props.ref = '1'
+    props.href = '#'
+    props.role = 'button'
+    props.tabIndex = -1
 
-    props.component ?= Link
+    props.classList.push 'focus' if @state.focus
+
+    props.onMouseMove = do (ref = props.ref, original = props.onMouseMove) =>
+      (e) =>
+        React.findDOMNode(@refs[ref]).focus?()
+        original? e
 
   renderComponent: (props) =>
-    className = props.className
-    delete props.className
-
     $ 'li',
-      className: className
-      $ props.component, props, props.children
+      className: 'm-menu-item'
+      $ Link, props, props.children
 
 module.exports = Menu

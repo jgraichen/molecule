@@ -5,8 +5,10 @@ $ = React.createElement
 Component = require './component'
 
 class Link extends Component
-  constructor: (props) ->
-    super props
+  @defaultProps =
+    href: '#'
+    role: 'link'
+    tabIndex: 0
 
   prepare: (props) ->
     super props

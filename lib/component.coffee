@@ -1,4 +1,5 @@
 #
+assign = require 'object-assign'
 React = require 'react'
 
 excludeMethods =
@@ -34,7 +35,7 @@ class Component extends React.Component
     @mixins.push mixin
 
   constructor: (props) ->
-    super props
+    super assign {}, @defaultProps, props
 
     @state = {}
 

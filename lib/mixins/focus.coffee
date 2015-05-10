@@ -1,7 +1,7 @@
 React = require 'react'
 
 #
-module.exports = (config) ->
+module.exports = (config = {}) ->
   componentDidMount: ->
     @__focusHandler = => @setState focus: true
     @__blurHandler = => @setState focus: false

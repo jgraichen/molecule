@@ -52,10 +52,10 @@ class Select extends Button
   renderItem: (item, index) =>
     $ Menu.Item,
       key: index,
-      onClick: (e) =>
-        if util.isPrimaryButton e
-          e.preventDefault()
-          @setState index: index
+      onAction: (e) =>
+        e.preventDefault()
+        @setState index: index, active: false, =>
+          React.findDOMNode(@).focus()
       @props.render item
 
   renderChildren: (props) =>
