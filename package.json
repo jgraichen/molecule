@@ -24,10 +24,10 @@
     "url": "https://github.com/jgraichen/molecule/issues"
   },
   "dependencies": {
-    "coffeeify": "~1.0.0",
-    "envify": "~3.2.0",
-    "react": "^0.13.1",
     "tether": "^0.6.5"
+  },
+  "peerDependencies": {
+    "react": "^0.13.0"
   },
   "devDependencies": {
     "autoprefixer": "^5.1.1",
@@ -35,7 +35,9 @@
     "coffee-script": "~1.8.0",
     "exorcist": "^0.1.6",
     "jest-cli": "^0.2.1",
-    "sifter": "^0.3.4"
+    "sifter": "^0.3.4",
+    "coffeeify": "~1.0.0",
+    "envify": "~3.2.0"
   },
   "jest": {
     "scriptPreprocessor": "preprocessor.js",
