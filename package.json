@@ -37,7 +37,8 @@
     "jest-cli": "^0.2.1",
     "sifter": "^0.3.4",
     "coffeeify": "~1.0.0",
-    "envify": "~3.2.0"
+    "envify": "~3.2.0",
+    "react": "^0.13.0"
   },
   "jest": {
     "scriptPreprocessor": "preprocessor.js",
