@@ -13,9 +13,6 @@ class Menu extends Component
 
     props.classList.push 'm-menu'
 
-    if props.hover != 'manual'
-      props.classList.push 'm-menu-hover'
-
   renderComponent: (props) =>
     delete props.hover
 
@@ -37,6 +34,11 @@ class Menu.Item extends Component
     href: '#'
     role: 'button'
     tabIndex: -1
+
+  prepare: (props) =>
+    super props
+
+    props.classList.push 'm-highlight' if props.highlight
 
   renderComponent: (props) =>
     $ 'li',

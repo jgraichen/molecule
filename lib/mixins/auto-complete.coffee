@@ -11,8 +11,11 @@ Menu = require '../menu'
 
 _renderItem = (render, item, index) ->
   $ Menu.Item,
-    key: index,
-    onClick: (e) =>\
+    key: index
+    highlight: @state._acHighlight == index
+    onMouseOver: (e) =>
+      @setState _acHighlight: index
+    onClick: (e) =>
       @setState value: item.value, _acItems: null, _acDisabled: true, =>
         @focus()
         @setState _acDisabled: false

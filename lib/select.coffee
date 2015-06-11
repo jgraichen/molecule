@@ -110,9 +110,7 @@ class Select extends Button
     $ Menu.Item,
       id: @state.uniqueId + '-' + index
       key: index,
-      classList: [
-        'm-highlighted' if @state.highlight == index
-      ]
+      highlight: @state.highlight == index
       onMouseOver: (e) =>
         @setState highlight: index
       onMouseUp: (e) =>
