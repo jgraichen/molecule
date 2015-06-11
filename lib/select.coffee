@@ -10,7 +10,7 @@ Panel = require './panel'
 Menu = require './menu'
 util = require './util'
 
-{BUTTON_LEFT, KEY_UP, KEY_DOWN} = require './constants'
+{BUTTON_LEFT, KEY_UP, KEY_DOWN, KEY_SPACE, KEY_ENTER} = require './constants'
 
 class Select extends Button
   @include Layered
@@ -57,19 +57,12 @@ class Select extends Button
     props['aria-controls'] = @state.uniqueId
     props['aria-expanded'] = @state.expanded
 
-    props.onClick = do (original = props.onClick) =>
-      (e) =>
-        if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button == BUTTON_LEFT
-          e.preventDefault()
-          @_toggle()
-        original? e
-
     props.onMouseDown = do (original = props.onMouseDown) =>
       (e) =>
         if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button == BUTTON_LEFT
           e.preventDefault()
           @focus()
-          @_toggle()
+          @_expand()
         original? e
 
     props.onKeyDown = do (original = props.onKeyDown) =>
@@ -81,6 +74,9 @@ class Select extends Button
           if e.keyCode == KEY_DOWN
             e.preventDefault()
             @_setIndex @state.index + 1
+          if e.keyCode == KEY_SPACE || e.keyCode == KEY_ENTER
+            e.preventDefault()
+            @_toggle()
         original? e
 
   renderLayer: =>
