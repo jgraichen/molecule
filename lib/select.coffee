@@ -10,6 +10,8 @@ Panel = require './panel'
 Menu = require './menu'
 util = require './util'
 
+{BUTTON_LEFT, KEY_UP, KEY_DOWN} = require './constants'
+
 class Select extends Button
   @include Layered
   @include Resizable
@@ -17,14 +19,34 @@ class Select extends Button
   constructor: (props) ->
     super props
 
-    @state.index    = 0
-    @state.uniqueId = util.uniqueId()
+    @state.index     = 0
+    @state.highlight = 0
+    @state.uniqueId  = util.uniqueId()
 
   onResize: (e) =>
     @forceUpdate()
 
   getValue: =>
     @props.items[@state.index]
+
+  _setIndex: (index, fn) =>
+    index = 0 if index < 0
+    index = @props.items.length - 1 if index >= @props.items.length
+
+    @setState index: index, highlight: index, fn
+
+  _collapse: (index) =>
+    @_setIndex index if index?
+    @setState expanded: false, => React.findDOMNode(this).focus()
+
+  _expand: =>
+    @setState expanded: true
+
+  _toggle: =>
+    if @state.expanded
+      @_collapse()
+    else
+      @_expand()
 
   prepare: (props) =>
     super props
@@ -35,9 +57,30 @@ class Select extends Button
     props['aria-controls'] = @state.uniqueId
     props['aria-expanded'] = @state.expanded
 
+    props.onClick = do (original = props.onClick) =>
+      (e) =>
+        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button == BUTTON_LEFT
+          e.preventDefault()
+          @_toggle()
+        original? e
+
     props.onMouseDown = do (original = props.onMouseDown) =>
       (e) =>
-        @setState expanded: !@state.expanded
+        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button == BUTTON_LEFT
+          e.preventDefault()
+          @_toggle()
+        original? e
+
+    props.onKeyDown = do (original = props.onKeyDown) =>
+      (e) =>
+        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey
+          if event.keyCode == KEY_UP
+            e.preventDefault()
+            @_setIndex @state.index - 1
+          if event.keyCode == KEY_DOWN
+            e.preventDefault()
+            @_setIndex @state.index + 1
+        original? e
 
   renderLayer: =>
     return unless @state.expanded
@@ -58,19 +101,30 @@ class Select extends Button
 
         "#{offset}px 0"
       onCloseRequest: =>
-        @setState expanded: false
+        @_collapse @state.index
       $ Panel, id: @state.uniqueId,
-        $ Menu.List, null, do =>
+        $ Menu.List, hover: 'manual', do =>
           @renderItem item, index for item, index in @props.items
 
   renderItem: (item, index) =>
     $ Menu.Item,
       id: @state.uniqueId + '-' + index
       key: index,
-      onAction: (e) =>
-        e.preventDefault()
-        @setState index: index, expanded: false, =>
-          React.findDOMNode(@).focus()
+      classList: [
+        'm-highlighted' if @state.highlight == index
+      ]
+      onMouseOver: (e) =>
+        @setState highlight: index
+      onMouseUp: (e) =>
+        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button == BUTTON_LEFT
+          if @state.index != index
+            e.preventDefault()
+            @_collapse index
+      onClick: (e) =>
+        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button == BUTTON_LEFT
+          e.preventDefault()
+          @_collapse index
+
       @props.render item
 
   renderChildren: (props) =>

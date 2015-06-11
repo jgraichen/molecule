@@ -13,8 +13,9 @@ class Link extends Component
   prepare: (props) ->
     super props
 
-    props.classList.push 'focus' if @state.focus
-    props.classList.push 'active' if @state.active || @props.active
+    props.classList.push 'm-focus' if @state.focus
+    props.classList.push 'm-active' if @state.active || @props.active
+    props.classList.push 'm-hover' if @state.hover || @props.hover
 
     if props.onAction?
       props.onClick = do (original = props.onClick) =>

@@ -13,7 +13,12 @@ class Menu extends Component
 
     props.classList.push 'm-menu'
 
+    if props.hover != 'manual'
+      props.classList.push 'm-menu-hover'
+
   renderComponent: (props) =>
+    delete props.hover
+
     $ 'div', props, props.children
 
 class Menu.List extends Component
