@@ -37,10 +37,10 @@ $m-input-padding: 5px 8px !default
     top: 0
 
 =m-input-variant($focus)
-  &:hover
+  +m-hover
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1)
 
-  &:focus, &.focus
+  +m-focus
     border-color: $focus
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2)
 
