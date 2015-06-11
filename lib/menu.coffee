@@ -33,17 +33,6 @@ class Menu.Item extends Component
     role: 'button'
     tabIndex: -1
 
-  prepare: (props) =>
-    super props
-
-    props.ref = '1'
-    props.classList.push 'focus' if @state.focus
-
-    props.onMouseMove = do (ref = props.ref, original = props.onMouseMove) =>
-      (e) =>
-        React.findDOMNode(@refs[ref]).focus?()
-        original? e
-
   renderComponent: (props) =>
     $ 'li',
       className: 'm-menu-item'
