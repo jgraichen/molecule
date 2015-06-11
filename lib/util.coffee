@@ -1,7 +1,12 @@
 #
 hasOwnProperty = Object.prototype.hasOwnProperty
 
+uniqueIdCounter = 0
+
 util =
+  uniqueId: ->
+    "m-#{uniqueIdCounter++}"
+
   isUnmodifiedEvent: (e) ->
     !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey
 

@@ -17,7 +17,8 @@ class Select extends Button
   constructor: (props) ->
     super props
 
-    @state.index = 0
+    @state.index    = 0
+    @state.uniqueId = util.uniqueId()
 
   onResize: (e) =>
     @forceUpdate()
@@ -30,12 +31,16 @@ class Select extends Button
 
     props.classList.push 'm-select'
 
+    props['aria-haspopup'] = true
+    props['aria-controls'] = @state.uniqueId
+    props['aria-expanded'] = @state.expanded
+
     props.onMouseDown = do (original = props.onMouseDown) =>
       (e) =>
-        @setState active: !@state.active
+        @setState expanded: !@state.expanded
 
   renderLayer: =>
-    return unless @state.active
+    return unless @state.expanded
 
     target = React.findDOMNode @
     style  = minWidth: target.offsetWidth
@@ -44,8 +49,8 @@ class Select extends Button
       style: style
       target: target
       onCloseRequest: =>
-        @setState active: false
-      $ Panel, null,
+        @setState expanded: false
+      $ Panel, id: @state.uniqueId,
         $ Menu.List, null, do =>
           @renderItem item, index for item, index in @props.items
 
@@ -54,7 +59,7 @@ class Select extends Button
       key: index,
       onAction: (e) =>
         e.preventDefault()
-        @setState index: index, active: false, =>
+        @setState index: index, expanded: false, =>
           React.findDOMNode(@).focus()
       @props.render item
 
