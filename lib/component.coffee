@@ -1,8 +1,6 @@
 #
 React = require 'react'
 
-util = require './util'
-
 excludeMethods =
   componentDidMount: true,
   componentWillUnmount: true,
@@ -36,7 +34,7 @@ class Component extends React.Component
     @mixins.push mixin
 
   constructor: (props) ->
-    super util.copy @defaultProps, props
+    super props
 
     @state = {}
 

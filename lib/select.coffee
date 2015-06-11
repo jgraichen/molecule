@@ -48,6 +48,15 @@ class Select extends Button
     $ Attachment,
       style: style
       target: target
+      constraints: [{ to: 'window', pin: true }]
+      targetAttachment: 'top left'
+      offset: =>
+        root = document.getElementById @state.uniqueId
+        item = document.getElementById "#{@state.uniqueId}-#{@state.index}"
+
+        offset = item.offsetTop - root.offsetTop
+
+        "#{offset}px 0"
       onCloseRequest: =>
         @setState expanded: false
       $ Panel, id: @state.uniqueId,
@@ -56,6 +65,7 @@ class Select extends Button
 
   renderItem: (item, index) =>
     $ Menu.Item,
+      id: @state.uniqueId + '-' + index
       key: index,
       onAction: (e) =>
         e.preventDefault()

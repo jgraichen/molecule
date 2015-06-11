@@ -1,9 +1,8 @@
 #
 Tether = require 'tether/tether'
 React = require 'react'
+_ = require './prelude'
 $ = React.createElement
-
-util = require './util'
 
 class Attachment extends React.Component
   componentDidMount: =>
@@ -13,15 +12,19 @@ class Attachment extends React.Component
     document.addEventListener 'mousedown', @handleEvent
     document.addEventListener 'focus', @handleEvent, true
 
-    @tether = new Tether
-      classPrefix: 'm'
-      element: @root
-      target: @props.target
-      attachment: @props.attachment || 'top left'
-      constraints: @props.constraints
-      targetAttachment: @props.targetAttachment || 'bottom left'
-
-    @componentDidUpdate()
+    React.render @renderAttachment(), @root, =>
+      @tether = new Tether
+        classPrefix: 'm'
+        element: @root
+        target: _.value @props.target
+        offset: _.value @props.offset || '0 0'
+        attachment: _.value @props.attachment || 'top left'
+        constraints: _.value @props.constraints
+        targetOffset: _.value @props.targetOffset || '0 0'
+        optimizations: _.value @props.optimizations
+        targetModifier: _.value @props.targetModifier
+        targetAttachment: _.value @props.targetAttachment || 'bottom left'
+      @tether.position()
 
   componentDidUpdate: =>
     React.render @renderAttachment(), @root, => @tether?.position()
@@ -29,7 +32,7 @@ class Attachment extends React.Component
   componentWillUnmount: =>
     React.unmountComponentAtNode @root
 
-    @tether.destroy()
+    @tether.destroy?()
     document.body.removeChild @root
     document.removeEventListener 'mousedown', @handleEvent
     document.removeEventListener 'focus', @handleEvent, true
@@ -48,12 +51,16 @@ class Attachment extends React.Component
     null
 
   renderAttachment: =>
-    props = util.copy @props
+    props = _.clone @props
 
     delete props.target
+    delete props.offset
     delete props.attachment
     delete props.constraints
+    delete props.targetOffset
+    delete props.optimizations
     delete props.onCloseRequest
+    delete props.targetModifier
     delete props.targetAttachment
 
     $ 'div', props
