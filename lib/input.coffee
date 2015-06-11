@@ -10,6 +10,8 @@ Submit = require './mixins/submit'
 Transform = require './mixins/transform'
 MaxLength = require './mixins/max-length'
 
+{KEY_ENTER} = require './constants'
+
 class Input extends Component
   @include Focus, ref: 'input'
   @include MaxLength
@@ -48,6 +50,16 @@ class Input extends Component
       (e) =>
         original? e
         @setState value: e.target.value
+
+    if props.onSubmit
+      props.onKeyDown = do (original = props.onKeyDown, onSubmit = props.onSubmit) =>
+        (e) =>
+          original? e
+
+          if !e.defaultPrevented
+            if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey
+              if event.keyCode == KEY_ENTER
+                onSubmit? e
 
   renderComponent: (props) ->
     $ 'input', props, []
