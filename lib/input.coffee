@@ -57,8 +57,8 @@ class Input extends Component
           original? e
 
           if !e.defaultPrevented
-            if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey
-              if event.keyCode == KEY_ENTER
+            if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey
+              if e.keyCode == KEY_ENTER
                 onSubmit? e
 
   renderComponent: (props) ->

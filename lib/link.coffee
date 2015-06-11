@@ -20,16 +20,16 @@ class Link extends Component
 
     if props.onAction?
       props.onClick = do (original = props.onClick) =>
-        (event) ->
-          if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button == BUTTON_LEFT
-            props.onAction event
-          original? event
+        (e) ->
+          if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button == BUTTON_LEFT
+            props.onAction e
+          original? e
 
       props.onKeyPress = do (original = props.onKeyPress) =>
-        (event) ->
-          if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.keyCode == KEY_ENTER
-            props.onAction event
-          original? event
+        (e) ->
+          if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.keyCode == KEY_ENTER
+            props.onAction e
+          original? e
 
   renderComponent: (props) ->
     $ 'a', props, props.children

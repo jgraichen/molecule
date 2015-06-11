@@ -59,14 +59,14 @@ class Select extends Button
 
     props.onClick = do (original = props.onClick) =>
       (e) =>
-        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button == BUTTON_LEFT
+        if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button == BUTTON_LEFT
           e.preventDefault()
           @_toggle()
         original? e
 
     props.onMouseDown = do (original = props.onMouseDown) =>
       (e) =>
-        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button == BUTTON_LEFT
+        if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button == BUTTON_LEFT
           e.preventDefault()
           @focus()
           @_toggle()
@@ -74,11 +74,11 @@ class Select extends Button
 
     props.onKeyDown = do (original = props.onKeyDown) =>
       (e) =>
-        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey
-          if event.keyCode == KEY_UP
+        if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey
+          if e.keyCode == KEY_UP
             e.preventDefault()
             @_setIndex @state.index - 1
-          if event.keyCode == KEY_DOWN
+          if e.keyCode == KEY_DOWN
             e.preventDefault()
             @_setIndex @state.index + 1
         original? e
@@ -115,12 +115,12 @@ class Select extends Button
       onMouseOver: (e) =>
         @setState highlight: index
       onMouseUp: (e) =>
-        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button == BUTTON_LEFT
+        if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button == BUTTON_LEFT
           if @state.index != index
             e.preventDefault()
             @_collapse index
       onClick: (e) =>
-        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button == BUTTON_LEFT
+        if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button == BUTTON_LEFT
           e.preventDefault()
           @_collapse index
 

@@ -68,24 +68,24 @@ module.exports = (config) ->
 
     props.onKeyDown = do (original = props.onKeyDown) =>
       (e) =>
-        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey
+        if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey
           if @state._acItems?.length > 0
 
-            if event.keyCode == KEY_UP
+            if e.keyCode == KEY_UP
               e.preventDefault()
               if @state._acHighlight > 0
                 @setState _acHighlight: @state._acHighlight - 1
               else
                 @setState _acHighlight: (@state._acItems.length - 1)
 
-            if event.keyCode == KEY_DOWN
+            if e.keyCode == KEY_DOWN
               e.preventDefault()
               if @state._acHighlight < (@state._acItems.length - 1)
                 @setState _acHighlight: @state._acHighlight + 1
               else
                 @setState _acHighlight: 0
 
-            if event.keyCode == KEY_ENTER
+            if e.keyCode == KEY_ENTER
               e.preventDefault()
               @setState value: @state._acItems[@state._acHighlight].value, _acItems: null, _acDisabled: true, =>
                 @focus()
