@@ -14,6 +14,7 @@ class Attachment extends React.Component
     document.addEventListener 'focus', @handleEvent, true
 
     @tether = new Tether
+      classPrefix: 'm'
       element: @root
       target: @props.target
       attachment: @props.attachment || 'top left'
