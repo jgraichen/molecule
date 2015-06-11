@@ -37,7 +37,7 @@ class Select extends Button
 
   _collapse: (index) =>
     @_setIndex index if index?
-    @setState expanded: false, => React.findDOMNode(this).focus()
+    @setState expanded: false, => @focus()
 
   _expand: =>
     @setState expanded: true
@@ -68,6 +68,7 @@ class Select extends Button
       (e) =>
         if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button == BUTTON_LEFT
           e.preventDefault()
+          @focus()
           @_toggle()
         original? e
 

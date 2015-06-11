@@ -10,6 +10,9 @@ class Link extends Component
     role: 'link'
     tabIndex: 0
 
+  focus: =>
+    React.findDOMNode(this).focus()
+
   prepare: (props) ->
     super props
 

@@ -9,6 +9,8 @@ Layered = require './layered'
 Panel = require '../panel'
 Menu = require '../menu'
 
+{KEY_UP, KEY_DOWN, KEY_ENTER} = require '../constants'
+
 _renderItem = (render, item, index) ->
   $ Menu.Item,
     key: index
@@ -26,19 +28,19 @@ _renderPanel = (render) ->
     $ Panel, null,
       $ Menu.List, null, do =>
         for item, index in @state._acItems
-          _renderItem.call @, render, item, index
+          _renderItem.call this, render, item, index
 
 module.exports = (config) ->
   componentDidMount: ->
     @_acLayer ?= new Layered.Layer =>
-      target = React.findDOMNode @
+      target = React.findDOMNode this
       style  = minWidth: target.offsetWidth
 
       $ Attachment,
         style: style
         target: target
         onCloseRequest: => @setState _acItems: null
-        _renderPanel.call @, config.render
+        _renderPanel.call this, config.render
 
     @_acLayer.mount()
 
@@ -51,6 +53,9 @@ module.exports = (config) ->
   prepare: (props) ->
     updateItems = (orig) =>
       (e) =>
+        if !@state._acHighlight?
+          @setState _acHighlight: 0
+
         unless @state._acDisabled
           config.query(e.target.value).then (items) =>
             if @state.focus
@@ -60,3 +65,30 @@ module.exports = (config) ->
     props.onChange = do (orig = props.onChange) => updateItems orig
     props.onFocus = do (orig = props.onFocus) => updateItems orig
     props.onClick = do (orig = props.onClick) => updateItems orig
+
+    props.onKeyDown = do (original = props.onKeyDown) =>
+      (e) =>
+        if !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey
+          if @state._acItems?.length > 0
+
+            if event.keyCode == KEY_UP
+              e.preventDefault()
+              if @state._acHighlight > 0
+                @setState _acHighlight: @state._acHighlight - 1
+              else
+                @setState _acHighlight: (@state._acItems.length - 1)
+
+            if event.keyCode == KEY_DOWN
+              e.preventDefault()
+              if @state._acHighlight < (@state._acItems.length - 1)
+                @setState _acHighlight: @state._acHighlight + 1
+              else
+                @setState _acHighlight: 0
+
+            if event.keyCode == KEY_ENTER
+              e.preventDefault()
+              @setState value: @state._acItems[@state._acHighlight].value, _acItems: null, _acDisabled: true, =>
+                @focus()
+                @setState _acDisabled: false
+
+        original? e
