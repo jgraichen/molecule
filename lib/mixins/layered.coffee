@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 
 #
 Layered = ->
@@ -16,9 +17,9 @@ Layered = ->
     content = @renderLayer()
 
     if content
-      React.render content, @_layerNode
+      ReactDOM.render content, @_layerNode
     else
-      React.unmountComponentAtNode @_layerNode
+      ReactDOM.unmountComponentAtNode @_layerNode
 
 class Layered.Layer
   constructor: (render) ->
@@ -31,14 +32,14 @@ class Layered.Layer
     @update()
 
   unmount: =>
-    React.unmountComponentAtNode @layerNode
+    ReactDOM.unmountComponentAtNode @layerNode
 
   update: =>
     content = @render()
 
     if content
-      React.render content, @layerNode
+      ReactDOM.render content, @layerNode
     else
-      React.unmountComponentAtNode @layerNode
+      ReactDOM.unmountComponentAtNode @layerNode
 
 module.exports = Layered
