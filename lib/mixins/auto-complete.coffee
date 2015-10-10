@@ -19,6 +19,7 @@ _renderItem = (render, item, index) ->
     onMouseOver: (e) =>
       @setState _acHighlight: index
     onClick: (e) =>
+      e.preventDefault()
       @setState value: item.value, _acItems: null, _acDisabled: true, =>
         @focus()
         @setState _acDisabled: false
