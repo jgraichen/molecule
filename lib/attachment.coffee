@@ -1,6 +1,7 @@
 #
 Tether = require 'tether'
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require './prelude'
 $ = React.createElement
 
@@ -12,7 +13,7 @@ class Attachment extends React.Component
     document.addEventListener 'mousedown', @handleEvent
     document.addEventListener 'focus', @handleEvent, true
 
-    React.render @renderAttachment(), @root, =>
+    ReactDOM.render @renderAttachment(), @root, =>
       @tether = new Tether
         classPrefix: 'm'
         element: @root
@@ -27,10 +28,10 @@ class Attachment extends React.Component
       @tether.position()
 
   componentDidUpdate: =>
-    React.render @renderAttachment(), @root, => @tether?.position()
+    ReactDOM.render @renderAttachment(), @root, => @tether?.position()
 
   componentWillUnmount: =>
-    React.unmountComponentAtNode @root
+    ReactDOM.unmountComponentAtNode @root
 
     @tether.destroy?()
     document.body.removeChild @root
