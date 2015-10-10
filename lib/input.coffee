@@ -31,7 +31,7 @@ class Input extends Component
     @setState value: value
 
   focus: =>
-    @refs['input']?.getDOMNode().focus()
+    @refs['input']?.focus()
 
   clear: =>
     @setState value: ''
@@ -62,6 +62,8 @@ class Input extends Component
                 onSubmit? e
 
   renderComponent: (props) ->
-    $ 'input', props, []
+    delete props.children
+
+    $ 'input', props
 
 module.exports = Input

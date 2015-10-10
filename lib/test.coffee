@@ -1,15 +1,16 @@
-React = require 'react/addons'
-TestUtils = React.addons.TestUtils
+React = require 'react'
+ReactDOM = require 'react-dom'
+TestUtils = require 'react-addons-test-utils'
 
 Test =
   render: (fn) ->
-    new Test.Element React.addons.TestUtils.renderIntoDocument fn(React.createElement)
+    new Test.Element TestUtils.renderIntoDocument fn(React.createElement)
 
 class Test.Element
   constructor: (component) ->
     @component = component
 
-    Object.defineProperty @, 'dom', get: => component.getDOMNode()
+    Object.defineProperty @, 'dom', get: => ReactDOM.findDOMNode(component)
     Object.defineProperty @, 'state', get: => component.state
     Object.defineProperty @, 'props', get: => component.props
 

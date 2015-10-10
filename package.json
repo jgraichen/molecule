@@ -25,21 +25,23 @@
   },
   "dependencies": {
     "lodash": "^3.9.3",
-    "tether": "^0.6.5"
+    "tether": "^1.1.0"
   },
   "peerDependencies": {
-    "react": "^0.13.0"
+    "react": "^0.14.0"
   },
   "devDependencies": {
-    "autoprefixer": "^5.1.1",
-    "browserify": "~8.0.2",
+    "autoprefixer": "^6.0.3",
+    "browserify": "^11.2.0",
     "coffee-script": "~1.8.0",
-    "exorcist": "^0.1.6",
-    "jest-cli": "^0.2.1",
-    "sifter": "^0.3.4",
-    "coffeeify": "~1.0.0",
-    "envify": "~3.2.0",
-    "react": "^0.13.0"
+    "coffeeify": "^1.0.0",
+    "envify": "^3.2.0",
+    "exorcist": "^0.4.0",
+    "jest-cli": "^0.5.10",
+    "react": "^0.14.0",
+    "react-addons-test-utils": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "sifter": "^0.4.4"
   },
   "jest": {
     "scriptPreprocessor": "preprocessor.js",

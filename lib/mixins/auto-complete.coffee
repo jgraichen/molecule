@@ -1,6 +1,7 @@
 #
 #
 React = require 'react'
+ReactDOM = require 'react-dom'
 $ = React.createElement
 
 ActivityIndicator = require '../activity-indicator'
@@ -33,7 +34,7 @@ _renderPanel = (render) ->
 module.exports = (config) ->
   componentDidMount: ->
     @_acLayer ?= new Layered.Layer =>
-      target = React.findDOMNode this
+      target = ReactDOM.findDOMNode this
       style  = minWidth: target.offsetWidth
 
       $ Attachment,

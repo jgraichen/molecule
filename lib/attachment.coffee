@@ -1,5 +1,5 @@
 #
-Tether = require 'tether/tether'
+Tether = require 'tether'
 React = require 'react'
 _ = require './prelude'
 $ = React.createElement

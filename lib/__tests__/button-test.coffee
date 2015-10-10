@@ -45,7 +45,7 @@ describe 'Button', ->
 
     expect(btn.dom.textContent).toEqual('Button text');
     expect(btn.dom.className).toEqual('m-button');
-    expect(btn.dom.href).toEqual('file:///#');
+    expect(btn.dom.href).toEqual('/#');
 
   it 'should invoke onAction on primary click', ->
     spy = jasmine.createSpy 'onAction'
