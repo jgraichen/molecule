@@ -7,7 +7,7 @@ SLIMC        = $(RUBY) -S bundle exec slimrb
 SASSC        = $(RUBY) -S bundle exec sass -r 'compass/import-once/activate'
 COFFEEC      = $(NODE) node_modules/.bin/coffee
 BROWSERIFY   = $(NODE) node_modules/.bin/browserify --extension=".coffee"
-AUTOPREFIXER = $(NODE) node_modules/.bin/autoprefixer
+AUTOPREFIXER = $(NODE) node_modules/.bin/postcss -u autoprefixer
 
 COFFEE_FILES = $(shell find lib -name '*.coffee')
 SASS_FILES   = $(shell find css -name '*.sass')
