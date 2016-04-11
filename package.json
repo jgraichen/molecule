@@ -28,7 +28,7 @@
     "tether": "^1.1.0"
   },
   "peerDependencies": {
-    "react": "^0.14.0"
+    "react": "^15.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
@@ -39,9 +39,9 @@
     "exorcist": "^0.4.0",
     "jest-cli": "^0.5.10",
     "postcss-cli": "^2.2.0",
-    "react": "^0.14.0",
-    "react-addons-test-utils": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": "^15.0.0",
+    "react-addons-test-utils": "^15.0.0",
+    "react-dom": "^15.0.0",
     "sifter": "^0.4.4"
   },
   "jest": {
