@@ -9,9 +9,7 @@ html
 
   body
     coffee:
-      window.React = require 'react'
-      window.Molecule = require 'lib'
-      window.$ = React.createElement
+      window.Example = require 'lib/example'
 
     header
       a href="index.html" Index
@@ -45,28 +43,26 @@ html
         .example
           #example2
           coffee:
-            root = document.getElementById 'example2'
-            elem = $ 'div', null,
-              $ 'p', null,
-                $ Molecule.Input, defaultValue: 'A given value'
-              $ 'p', null,
-                $ Molecule.Input, size: 'shortest', placeholder: 'Shortest input'
-              $ 'p', null,
-                $ Molecule.Input, size: 'shorter', placeholder: 'Shorter input (5em)'
-              $ 'p', null,
-                $ Molecule.Input, size: 'short', placeholder: 'Short input (10em)'
-              $ 'p', null,
-                $ Molecule.Input, size: 'default', placeholder: 'Default input (20em)'
-              $ 'p', null,
-                $ Molecule.Input, size: 'long', placeholder: 'Long input (30em)'
-              $ 'p', null,
-                $ Molecule.Input, size: 'longer', placeholder: 'Longer input (40em)'
-              $ 'p', null,
-                $ Molecule.Input, size: 'fluid', placeholder: 'Fluid input'
-              $ 'p', null,
-                $ Molecule.Input, disabled: true, placeholder: 'Disabled'
-
-            React.render elem, root
+            Example.render '#example2', ($, Molecule) ->
+              $ 'div', null,
+                $ 'p', null,
+                  $ Molecule.Input, defaultValue: 'A given value'
+                $ 'p', null,
+                  $ Molecule.Input, size: 'shortest', placeholder: 'Shortest input'
+                $ 'p', null,
+                  $ Molecule.Input, size: 'shorter', placeholder: 'Shorter input (5em)'
+                $ 'p', null,
+                  $ Molecule.Input, size: 'short', placeholder: 'Short input (10em)'
+                $ 'p', null,
+                  $ Molecule.Input, size: 'default', placeholder: 'Default input (20em)'
+                $ 'p', null,
+                  $ Molecule.Input, size: 'long', placeholder: 'Long input (30em)'
+                $ 'p', null,
+                  $ Molecule.Input, size: 'longer', placeholder: 'Longer input (40em)'
+                $ 'p', null,
+                  $ Molecule.Input, size: 'fluid', placeholder: 'Fluid input'
+                $ 'p', null,
+                  $ Molecule.Input, disabled: true, placeholder: 'Disabled'
 
         markdown:
           A group can be used to combine several input elements.
@@ -91,23 +87,21 @@ html
         .example
           #example3
           coffee:
-            root = document.getElementById 'example3'
-            next = (e) ->
-              for el in e.target.parentNode.parentNode.getElementsByTagName 'input'
-                if found
-                  el.focus()
-                  return
+            Example.render '#example3', ($, Molecule) ->
+              next = (e) ->
+                for el in e.target.parentNode.parentNode.getElementsByTagName 'input'
+                  if found
+                    el.focus()
+                    return
 
-                found = true if el == e.target
-              return
+                  found = true if el == e.target
+                return
 
-            elem = $ 'div', null,
-              $ Molecule.Group, null,
-                $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
-                $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
-                $ Molecule.Input
-
-            React.render elem, root
+              $ 'div', null,
+                $ Molecule.Group, null,
+                  $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
+                  $ Molecule.Input, size: 4, maxLength: 4, onMaxLength: next
+                  $ Molecule.Input
 
         markdown:
           Specify a `transform` function that will be applied on all inputs:
@@ -121,16 +115,14 @@ html
         .example
           #example4
           coffee:
-            root = document.getElementById 'example4'
-            upcase = (value) -> value.toUpperCase()
-            numeric = (value) -> value.replace /[^0-9]/g, ''
+            Example.render '#example4', ($, Molecule) ->
+              upcase = (value) -> value.toUpperCase()
+              numeric = (value) -> value.replace /[^0-9]/g, ''
 
-            elem = $ 'div', null,
-              $ Molecule.Input, size: 'short', transform: upcase
-              ' '
-              $ Molecule.Input, size: 'short', transform: numeric
-
-            React.render elem, root
+              $ 'div', null,
+                $ Molecule.Input, size: 'short', transform: upcase
+                ' '
+                $ Molecule.Input, size: 'short', transform: numeric
 
         h2 AutoComplete extensions
         markdown:
@@ -158,37 +150,35 @@ html
         .example
           #example5
           coffee:
-            root = document.getElementById 'example5'
-            Sifter = require 'sifter'
+            Example.render '#example5', ($, Molecule) ->
+              Sifter = require 'sifter'
 
-            ITEMS = [
-              {value: 'Hamlet, Prince of Denmark', author: 'William Shakespear'}
-              {value: 'Romeo and Juliet', author: 'William Shakespear'}
-              {value: 'Die Leiden des jungen Werthers', author: 'Johann Wolfgang von Goethe'}
-            ]
+              ITEMS = [
+                {value: 'Hamlet, Prince of Denmark', author: 'William Shakespear'}
+                {value: 'Romeo and Juliet', author: 'William Shakespear'}
+                {value: 'Die Leiden des jungen Werthers', author: 'Johann Wolfgang von Goethe'}
+              ]
 
-            sifter = new Sifter ITEMS
+              sifter = new Sifter ITEMS
 
-            auto = Molecule.Mixins.AutoComplete
-              query: (value) ->
-                new Promise (resolve) ->
-                  setTimeout =>
-                    results = sifter.search value, fields: ['value', 'author']
-                    resolve(ITEMS[item.id] for item in results.items)
-                  , 1000
+              auto = Molecule.Mixins.AutoComplete
+                query: (value) ->
+                  new Promise (resolve) ->
+                    setTimeout =>
+                      results = sifter.search value, fields: ['value', 'author']
+                      resolve(ITEMS[item.id] for item in results.items)
+                    , 1000
 
-              render: (item) ->
-                $ 'span', null,
-                  $ 'strong', null, item.value
-                  ' '
-                  $ 'em', null, item.author
+                render: (item) ->
+                  $ 'span', null,
+                    $ 'strong', null, item.value
+                    ' '
+                    $ 'em', null, item.author
 
-            indicator = Molecule.Mixins.ActivityIndicator()
+              indicator = Molecule.Mixins.ActivityIndicator()
 
-            elem = $ 'div', null,
-              $ Molecule.Input, size: 'long', mixins: [auto, indicator]
-
-            React.render elem, root
+              $ 'div', null,
+                $ Molecule.Input, size: 'long', mixins: [auto, indicator]
 
         markdown:
           Please notice:

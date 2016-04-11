@@ -21,7 +21,7 @@ examples: examples/molecule.css examples/molecule.js $(EXAMPLES)
 
 examples/molecule.js: $(COFFEE_FILES)
 	@mkdir -p examples
-	NODE_PATH=. NODE_ENV=development $(BROWSERIFY) -r lib -r react -r sifter --debug > examples/molecule.js
+	NODE_PATH=. NODE_ENV=development $(BROWSERIFY) -r lib/example -r sifter --debug > examples/molecule.js
 
 examples/molecule.css: $(SASS_FILES)
 	@mkdir -p examples

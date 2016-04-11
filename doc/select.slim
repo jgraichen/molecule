@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Molecule - Select
+    link rel="stylesheet" href="example.css"
+    link rel="stylesheet" href="molecule.css"
+    script src="molecule.js"
+
+  body
+    coffee:
+      window.Example = require 'lib/example'
+
+    header
+      a href="index.html" Index
+      h1 Molecule: Select
+    article
+      h2 Simple select
+      section
+        .example#example1
+        coffee:
+          Example.render '#example1', ($, Molecule) ->
+            $ 'div', null,
+              $ Molecule.Select,
+                items: [
+                  {value: 'read', text: 'Read'}
+                  {value: 'edit', text: 'Edit'}
+                  {value: 'admin', text: 'Be an admin'}
+                ]
+                render: (item) => item.text

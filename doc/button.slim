@@ -9,9 +9,7 @@ html
 
   body
     coffee:
-      window.React = require 'react'
-      window.Molecule = require 'lib'
-      window.$ = React.createElement
+      window.Example = require 'lib/example'
 
     header
       a href="index.html" Index
@@ -47,12 +45,10 @@ html
 
         .example#example2
         coffee:
-          root = document.getElementById 'example2'
-          elem = $ 'div', null,
-            $ Molecule.Button, null, 'Button'
-            $ Molecule.Button, href: '#', 'Link'
-            $ Molecule.Button, primary: true, 'Primary'
-            $ Molecule.Button, disabled: true, 'Disabled'
-            $ Molecule.Button, className: 'small', 'Small'
-
-          React.render elem, root
+          Example.render '#example2', ($, Molecule) ->
+            $ 'div', null,
+              $ Molecule.Button, null, 'Button'
+              $ Molecule.Button, href: '#', 'Link'
+              $ Molecule.Button, primary: true, 'Primary'
+              $ Molecule.Button, disabled: true, 'Disabled'
+              $ Molecule.Button, className: 'small', 'Small'

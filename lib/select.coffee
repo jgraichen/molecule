@@ -82,7 +82,7 @@ class Select extends Button
   renderLayer: =>
     return unless @state.expanded
 
-    target = React.findDOMNode @
+    target = @$el
     style  = minWidth: target.offsetWidth
 
     $ Attachment,

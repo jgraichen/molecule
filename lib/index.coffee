@@ -10,5 +10,6 @@ module.exports =
   Input: require './input'
   Group: require './group'
   Button: require './button'
+  Select: require './select'
   Component: require './component'
   ActivityIndicator: require './activity-indicator'

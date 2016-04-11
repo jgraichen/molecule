@@ -9,9 +9,7 @@ html
 
   body
     coffee:
-      window.React = require 'react'
-      window.Molecule = require 'lib'
-      window.$ = React.createElement
+      window.Example = require 'lib/example'
 
     header
       a href="index.html" Index
@@ -45,15 +43,13 @@ html
                 $ Molecule.Button, null, 'D'
         .example#example1
         coffee:
-          root = document.getElementById 'example1'
-          elem = $ 'div', null,
-            $ Molecule.Group, null,
-              $ Molecule.Button, null, 'A'
-              $ Molecule.Button, null, 'B'
-              $ Molecule.Button, primary: true, 'C'
-              $ Molecule.Button, null, 'D'
-
-          React.render elem, root
+          Example.render '#example1', ($, Molecule) ->
+            $ 'div', null,
+              $ Molecule.Group, null,
+                $ Molecule.Button, null, 'A'
+                $ Molecule.Button, null, 'B'
+                $ Molecule.Button, primary: true, 'C'
+                $ Molecule.Button, null, 'D'
 
       h2 Buttons & Inputs
       section
@@ -62,11 +58,9 @@ html
 
         .example#example2
         coffee:
-          root = document.getElementById 'example2'
-          elem = $ 'div', null, [
-            $ Molecule.Input
-            $ Molecule.Button, null, [ 'Reset' ]
-            $ Molecule.Button, primary: true, [ 'Save' ]
-          ]
-
-          React.render elem, root
+          Example.render '#example2', ($, Molecule) ->
+            $ 'div', null, [
+              $ Molecule.Input
+              $ Molecule.Button, null, [ 'Reset' ]
+              $ Molecule.Button, primary: true, [ 'Save' ]
+            ]

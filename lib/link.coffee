@@ -13,7 +13,7 @@ class Link extends Component
     tabIndex: 0
 
   focus: =>
-    React.findDOMNode(this).focus()
+    @$el?.focus()
 
   prepare: (props) ->
     super props
@@ -30,6 +30,13 @@ class Link extends Component
           if !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.keyCode == KEY_ENTER
             props.onAction e
           original? e
+
+    props.ref = do (original = props.ref) =>
+      (el) =>
+        if !@$el
+          @$el = el
+
+        original? el
 
   renderComponent: (props) ->
     $ 'a', props, props.children
