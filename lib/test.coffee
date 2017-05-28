@@ -1,6 +1,6 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
-TestUtils = require 'react-addons-test-utils'
+TestUtils = require 'react-dom/test-utils'
 
 Test =
   render: (fn) ->

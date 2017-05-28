@@ -37,4 +37,4 @@ clean:
 	rmdir --ignore-fail-on-non-empty $(shell dirname ${EXAMPLES} | sort | uniq | sort -r)
 
 test:
-	NODE_PATH=. npm test
+	yarn test
