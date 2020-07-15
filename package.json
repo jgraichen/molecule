@@ -24,7 +24,7 @@
     "url": "https://github.com/jgraichen/molecule/issues"
   },
   "dependencies": {
-    "lodash": "^3.9.3",
+    "lodash": "^4.17.19",
     "microtime": "^2.1.3",
     "tether": "^1.1.0"
   },
